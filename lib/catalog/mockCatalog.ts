@@ -51,9 +51,9 @@ const baseCatalog: CatalogItem[] = [
 export const archiveFilms: CatalogItem[] = [
   {
     id:"auto-gris-1919", slug:"auto-gris-1919", title:"El automóvil gris (1919) HD", originalTitle:"El automóvil gris",
-    synopsis:"Clássico do cinema mudo mexicano (1919), de Enrique Rosas — nº 98 entre os 100 melhores filmes mexicanos. Domínio público. Cópia HD via Topaz Cine de Oro (YouTube oficial), embed verificado.",
+    synopsis:"Clássico do cinema mudo mexicano (1919), de Enrique Rosas — nº 98 entre os 100 melhores filmes mexicanos. Domínio público. Cópia HD via Topaz Cine de Oro (YouTube oficial), embed verificado. IMDb tt0009894.",
     shortSynopsis:"México · 1919 · mudo · domínio público",
-    poster:"https://i.ytimg.com/vi/FmfouqMv_EA/hqdefault.jpg", backdrop:"https://i.ytimg.com/vi/FmfouqMv_EA/maxresdefault.jpg",
+    poster:"https://upload.wikimedia.org/wikipedia/commons/2/24/El_Automovil_Gris_-_poster.jpg", backdrop:"https://i.ytimg.com/vi/FmfouqMv_EA/maxresdefault.jpg",
     contentType:"movie", year:1919, durationMin:120, country:"México", regions:["Centro"], languages:["Español"], subtitles:[], genres:["Clássico","Cinema mudo"],
     tags:["México","Domínio público","Cinema mudo","1919"],
     source:{ provider:"youtube", sourceUrl:"https://www.youtube.com/watch?v=FmfouqMv_EA", officialWebsite:"https://www.youtube.com/watch?v=FmfouqMv_EA", embedAllowed:true, checkedAt:new Date().toISOString(), rightsStatus:"officialPublic", accessType:"free", status:"active" },
@@ -63,11 +63,11 @@ export const archiveFilms: CatalogItem[] = [
     id:"sintel-2010", slug:"sintel-2010", title:"Sintel - Open Movie by Blender Foundation", originalTitle:"Sintel",
     synopsis:"Open movie Blender Foundation (2010), licença CC BY. Alta qualidade 1080p. Fonte oficial BlenderOfficial.",
     shortSynopsis:"Open Movie · 2010 · 15 min · CC BY",
-    poster:"https://i.ytimg.com/vi/eRsGyueVLvQ/hqdefault.jpg", backdrop:"https://i.ytimg.com/vi/eRsGyueVLvQ/maxresdefault.jpg",
-    contentType:"shortFilm", year:2010, durationMin:15, country:"Brasil", regions:["Sudeste"], languages:["English"], subtitles:["Português","Español","English"], genres:["Animação","Open Source"],
+    poster:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Sintel_poster.jpg", backdrop:"https://i.ytimg.com/vi/eRsGyueVLvQ/maxresdefault.jpg",
+    contentType:"shortFilm", year:2010, durationMin:15, country:"Holanda", regions:["Europa"], languages:["English"], subtitles:["Português","Español","English"], genres:["Animação","Open Source"],
     tags:["CC BY","Animação","Alta qualidade"],
     source:{ provider:"youtube", sourceUrl:"https://www.youtube.com/watch?v=eRsGyueVLvQ", officialWebsite:"https://studio.blender.org/films/sintel", embedAllowed:true, checkedAt:new Date().toISOString(), rightsStatus:"officialEmbed", accessType:"free", status:"active" },
-    collectionIds:["col-curtas"], personIds:[], rating:"Livre", ageRating:"Livre",
+    collectionIds:["col-curtas"], personIds:[], rating:"7.5 TMDB", ageRating:"Livre",
   } as CatalogItem,
   {
     id:"rio-1940s", slug:"rio-1940s", title:"RIO DE JANEIRO 1940s — Copacabana, Pão de Açúcar, Carnaval (Periscope/Archive)", originalTitle:"Rio de Janeiro travelogue XD5026",

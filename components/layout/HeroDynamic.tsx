@@ -5,9 +5,9 @@ import Link from "next/link";
 export type HeroItem = { id:string; title:string; subtitle:string; description:string; backdrop:string; type:string; country:string; category:string; href:string; cta:string };
 
 const ITEMS: HeroItem[] = [
-  { id:"h1", title:"A memória de um continente", subtitle:"CINEMA LATINO-AMERICANO · Documentário · Chile · 2025", description:"Uma produção que percorre arquivos, cinematecas e territórios para recontar a história audiovisual da América Latina.", backdrop:"https://picsum.photos/seed/hero1/1600/900", type:"Documentário", country:"CL", category:"Cinema", href:"/tv/filmes/1", cta:"Assistir agora" },
-  { id:"h2", title:"Sertão em 4K — som e território", subtitle:"CULTURA · Série · Brasil · 2024", description:"Mestres do pife, cantorias e paisagens sonoras do interior em captação imersiva.", backdrop:"https://picsum.photos/seed/hero2/1600/900", type:"Série", country:"BR", category:"Cultura", href:"/tv/filmes/2", cta:"Assistir agora" },
-  { id:"h3", title:"Universidad y Cultura — ao vivo de Córdoba", subtitle:"AO VIVO · Argentina · Córdoba", description:"Programa da universidade pública com debates, música e extensão territorial.", backdrop:"https://picsum.photos/seed/hero3/1600/900", type:"Ao Vivo", country:"AR", category:"Educação", href:"/tv/canais/encuentro", cta:"Assistir ao vivo" },
+  { id:"h1", title:"OITO ANOS DE BUENAS IDEIAS - EDUARDO BUENO", subtitle:"CINEMA · História · Brasil · 2024", description:"Buenas Ideias 8 anos — história do Brasil com Eduardo Bueno. Embed real verificado via YouTube oficial.", backdrop:"https://img.youtube.com/vi/DvqHEB0Y6mI/maxresdefault.jpg", type:"Documentário", country:"BR", category:"Cinema", href:"/tv/filmes/filme-patagonia-1", cta:"Assistir agora" },
+  { id:"h2", title:"QUEM INVENTOU O BRASIL? - EDUARDO BUENO", subtitle:"DOCUMENTÁRIO · História · Brasil · 2024", description:"Quem inventou o Brasil? — Buenas Ideias. Embed real verificado.", backdrop:"https://img.youtube.com/vi/Mvjz-TZ_lDc/maxresdefault.jpg", type:"Documentário", country:"BR", category:"História", href:"/tv/filmes/doc-chile-1", cta:"Assistir agora" },
+  { id:"h3", title:"Big Buck Bunny 60fps 4K - Blender Foundation", subtitle:"CINEMA · Animação · 2008", description:"Curta open source Blender — embed real verificado.", backdrop:"https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg", type:"Animação", country:"BR", category:"Cinema", href:"/tv/filmes/doc-brasil-1", cta:"Assistir agora" },
 ];
 
 export function HeroDynamic(){

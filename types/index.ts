@@ -15,7 +15,7 @@ export interface Channel {
   isLive: boolean;
 }
 
-export type SourceType = "youtube" | "vimeo" | "hls" | "external";
+export type SourceType = "youtube" | "vimeo" | "hls" | "html5" | "external";
 
 export interface Content {
   id: string;

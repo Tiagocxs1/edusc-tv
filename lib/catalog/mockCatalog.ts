@@ -45,7 +45,6 @@ const baseCatalog: CatalogItem[] = [
   real("html-primeiro","Seu primeiro código HTML - @Curso em Vídeo HTML5 e CSS3","Brasil","Sudeste","course",2020,17,["Educação","Tecnologia"],"https://www.youtube.com/watch?v=E6CdIawPTh0",{ director:"Gustavo Guanabara", personIds:["p-guanabara"], institutionId:"i-cev" }),
   real("html-site-completo","Curso de HTML5 - 00 - Site Completo - by Gustavo Guanabara","Brasil","Sudeste","course",2013,12,["Educação","Tecnologia"],"https://www.youtube.com/watch?v=epDCjksKMok",{ director:"Gustavo Guanabara", personIds:["p-guanabara"] }),
   real("manual-maquina","TESTAMOS a MÁQUINA de 2000 ANOS!","Brasil","Sudeste","educational",2024,12,["Ciência","Educação"],"https://www.youtube.com/watch?v=LPtIkMh7P3k",{ director:"Iberê Thenório", personIds:["p-ibere"], festivalId:"f-manual" }),
-  real("blender-bunny","Big Buck Bunny 60fps 4K - Official Blender Foundation Short Film","Brasil","Sudeste","shortFilm",2008,10,["Animação","Open Source"],"https://www.youtube.com/watch?v=aqz-KE-bpKQ",{ collectionIds:["col-curtas"] }),
 ];
 
 export const archiveFilms: CatalogItem[] = [
@@ -58,16 +57,6 @@ export const archiveFilms: CatalogItem[] = [
     tags:["México","Domínio público","Cinema mudo","1919"],
     source:{ provider:"youtube", sourceUrl:"https://www.youtube.com/watch?v=FmfouqMv_EA", officialWebsite:"https://www.youtube.com/watch?v=FmfouqMv_EA", embedAllowed:true, checkedAt:new Date().toISOString(), rightsStatus:"officialPublic", accessType:"free", status:"active" },
     collectionIds:["col-clasicos"], personIds:[], rating:"Livre", ageRating:"Livre",
-  } as CatalogItem,
-  {
-    id:"sintel-2010", slug:"sintel-2010", title:"Sintel - Open Movie by Blender Foundation", originalTitle:"Sintel",
-    synopsis:"Open movie Blender Foundation (2010), licença CC BY. Alta qualidade 1080p. Fonte oficial BlenderOfficial.",
-    shortSynopsis:"Open Movie · 2010 · 15 min · CC BY",
-    poster:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Sintel_poster.jpg", backdrop:"https://i.ytimg.com/vi/eRsGyueVLvQ/maxresdefault.jpg",
-    contentType:"shortFilm", year:2010, durationMin:15, country:"Holanda", regions:["Europa"], languages:["English"], subtitles:["Português","Español","English"], genres:["Animação","Open Source"],
-    tags:["CC BY","Animação","Alta qualidade"],
-    source:{ provider:"youtube", sourceUrl:"https://www.youtube.com/watch?v=eRsGyueVLvQ", officialWebsite:"https://studio.blender.org/films/sintel", embedAllowed:true, checkedAt:new Date().toISOString(), rightsStatus:"officialEmbed", accessType:"free", status:"active" },
-    collectionIds:["col-curtas"], personIds:[], rating:"7.5 TMDB", ageRating:"Livre",
   } as CatalogItem,
   {
     id:"rio-1940s", slug:"rio-1940s", title:"RIO DE JANEIRO 1940s — Copacabana, Pão de Açúcar, Carnaval (Periscope/Archive)", originalTitle:"Rio de Janeiro travelogue XD5026",
@@ -87,9 +76,23 @@ export const collections: Collection[] = [
   { id:"col-argentina", slug:"canal-encuentro-oficial", title:"Canal Encuentro Oficial", description:"TV educativa pública argentina — acervo oficial YouTube.", cover:"https://i.ytimg.com/vi/N9zOAZ-JA5I/hqdefault.jpg", type:"editorial", country:"Argentina", contentIds:["encuentro-cap1"] },
   { id:"col-edu", slug:"educacao-gratuita", title:"Educação gratuita — Curso em Vídeo", description:"HTML do zero com Guanabara.", cover:"https://i.ytimg.com/vi/E6CdIawPTh0/hqdefault.jpg", type:"editorial", contentIds:["html-primeiro","html-site-completo"] },
   { id:"col-docs-es", slug:"documentales-espanol", title:"Documentales en español", description:"DW + Encuentro + história latino-americana.", cover:"https://i.ytimg.com/vi/9aMtg7tQDMU/hqdefault.jpg", type:"editorial", contentIds:["dw-mexico-carteles","buenas-quem-inventou"] },
-  { id:"col-curtas", slug:"curtas-abertos", title:"Curtas abertos", description:"Blender open-source + ciência curta.", cover:"https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg", type:"editorial", contentIds:["blender-bunny","manual-maquina","sintel-2010"] },
+  { id:"col-curtas", slug:"curtas-latinos", title:"Curtas latinos — em curadoria", description:"Curtas latino-americanos com embed verificado. Novos títulos em verificação editorial.", cover:"https://i.ytimg.com/vi/N9zOAZ-JA5I/hqdefault.jpg", type:"editorial", contentIds:["manual-maquina"] },
   { id:"col-clasicos", slug:"clasicos-dominio-publico", title:"Clássicos em domínio público", description:"Cinema mudo latino em HD — fora do circuito comercial.", cover:"https://i.ytimg.com/vi/FmfouqMv_EA/hqdefault.jpg", type:"editorial", country:"México", contentIds:["auto-gris-1919"] },
   { id:"col-archivo", slug:"archivo-latino", title:"Arquivo latino — fora do YouTube", description:"Preservação Periscope/Archive.org em MP4 direto, alta qualidade.", cover:"https://archive.org/download/TSw7Dh424g3a65n28DixCkOk5H84GE/__ia_thumb.jpg", type:"editorial", contentIds:["rio-1940s"] },
+  { id:"col-cine-ar-pl", slug:"cine-argentino-playlist", title:"Cine Argentino — Playlist completa", description:"Películas argentinas completas via playlist oficial YouTube (videoseries).", cover:"https://i.ytimg.com/vi/UXnAJqXF4VU/hqdefault.jpg", type:"editorial", country:"Argentina", contentIds:["cine-argentino-pl"] },
 ];
 
-export const catalog: CatalogItem[] = [...baseCatalog, ...archiveFilms];
+const playlistItems: CatalogItem[] = [
+  {
+    id:"cine-argentino-pl", slug:"cine-argentino-pl", title:"Cine Argentino — Películas Completas (Playlist)", originalTitle:"Cine Argentino playlist",
+    synopsis:"Playlist pública 'Cine Argentino. Películas Argentinas Completas' — embed videoseries oficial YouTube. Verificar embedAllowed por obra; titularidade em revisão editorial.",
+    shortSynopsis:"Argentina · playlist · YouTube",
+    poster:"https://i.ytimg.com/vi/UXnAJqXF4VU/hqdefault.jpg", backdrop:"https://i.ytimg.com/vi/UXnAJqXF4VU/maxresdefault.jpg",
+    contentType:"movie", year:2024, durationMin:90, country:"Argentina", regions:["Buenos Aires"], languages:["Español"], subtitles:[], genres:["Cinema argentino"],
+    tags:["Argentina","Playlist","Cine argentino"],
+    source:{ provider:"youtube", sourceUrl:"https://www.youtube.com/playlist?list=PLj9stbUOTbCuRN8CqKn_t93L5MvhPf98U", officialWebsite:"https://www.youtube.com/playlist?list=PLj9stbUOTbCuRN8CqKn_t93L5MvhPf98U", embedAllowed:true, checkedAt:new Date().toISOString(), rightsStatus:"officialPublic", accessType:"free", status:"active" },
+    collectionIds:["col-cine-ar-pl"], personIds:[], rating:"Livre", ageRating:"Livre",
+  } as CatalogItem,
+];
+
+export const catalog: CatalogItem[] = [...baseCatalog, ...archiveFilms, ...playlistItems];

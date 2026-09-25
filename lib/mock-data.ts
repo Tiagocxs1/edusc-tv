@@ -40,11 +40,10 @@ export const mockContents: Content[] = [
   { id: "sintel-2010", title: "Sintel - Open Movie by Blender Foundation (CC BY)", description: "Blender oficial — 15 min, 1080p.", thumbnail: "https://i.ytimg.com/vi/eRsGyueVLvQ/hqdefault.jpg", category: "Cinema", duration: "14:48", source: "youtube", url: "https://www.youtube.com/watch?v=eRsGyueVLvQ", provider: "YouTube", countryId: "br" },
 ];
 
-// Cinema real apenas — pôsteres oficiais (Wikimedia CC), não thumbnails. Backdrop = YouTube, poster = cartaz.
+// Cinema latino real — pôster oficial, nunca thumbnail. Sem Blender (não-latino).
 export const mockMovies: Movie[] = [
   { id: "auto-gris-1919", title: "El automóvil gris (1919)", description: "Enrique Rosas — mudo mexicano, domínio público. IMDb tt0009894.", thumbnail: "https://upload.wikimedia.org/wikipedia/commons/2/24/El_Automovil_Gris_-_poster.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=FmfouqMv_EA", provider: "YouTube", year: "1919", director: "Enrique Rosas", countryId: "mx" },
-  { id: "sintel-2010", title: "Sintel (2010)", description: "Colin Levy / Blender Foundation — CC BY 3.0. TMDB 7.5.", thumbnail: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Sintel_poster.jpg", category: "Curtas", source: "youtube", url: "https://www.youtube.com/watch?v=eRsGyueVLvQ", provider: "YouTube", year: "2010", director: "Colin Levy", countryId: "mx" },
-  { id: "blender-bunny", title: "Big Buck Bunny (2008)", description: "Sacha Goedegebure / Blender — CC BY 3.0.", thumbnail: "https://commons.wikimedia.org/wiki/Special:FilePath/Big_buck_bunny_poster_big.jpg", category: "Curtas", source: "youtube", url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ", provider: "YouTube", year: "2008", director: "Sacha Goedegebure", countryId: "br" },
+  { id: "cine-argentino-pl", title: "Cine Argentino — Películas Completas", description: "Playlist oficial YouTube — cinema argentino completo.", thumbnail: "https://i.ytimg.com/vi/UXnAJqXF4VU/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/playlist?list=PLj9stbUOTbCuRN8CqKn_t93L5MvhPf98U", provider: "YouTube", year: "2024", director: "Vários", countryId: "ar" },
 ];
 
 export const mockCategories: Category[] = [

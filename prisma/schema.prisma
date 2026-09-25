@@ -1,0 +1,591 @@
+// EDUSC TV — Parte 6 — PostgreSQL schema (light mode: sem prisma generate ainda)
+// provider = youtube|vimeo|hls|html5|iframe|other — embedAllowed != autorização
+// CONTENT != SOURCE != SCHEDULE != CURATION
+
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- Geo ---
+model Country {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  iso2      String   @unique @db.Char(2)
+  iso3      String?  @unique @db.Char(3)
+  flag      String?
+  regions   Region[]
+  cities    City[]
+  contents  ContentLocation[]
+  channels  Channel[]
+  persons   Person[]
+  organizations Organization[]
+  @@index([slug])
+}
+model Region {
+  id        String   @id @default(cuid())
+  countryId String
+  country   Country  @relation(fields: [countryId], references: [id])
+  name      String
+  slug      String
+  type      String   // state|province|department|region|territory
+  cities    City[]
+  contents  ContentLocation[]
+  channels  Channel[]
+  @@unique([countryId, slug])
+  @@index([countryId])
+}
+model City {
+  id        String   @id @default(cuid())
+  countryId String
+  regionId  String?
+  country   Country  @relation(fields: [countryId], references: [id])
+  region    Region?  @relation(fields: [regionId], references: [id])
+  name      String
+  slug      String
+  contents  ContentLocation[]
+  channels  Channel[]
+  organizations Organization[]
+  @@unique([countryId, regionId, slug])
+}
+
+// --- Language ---
+model Language {
+  id         String   @id @default(cuid())
+  name       String   @unique
+  code       String   @unique
+  nativeName String?
+  contentLanguages ContentLanguage[]
+  subtitles        SubtitleTrack[]
+  audios           AudioTrack[]
+}
+model ContentLanguage {
+  id          String   @id @default(cuid())
+  contentId   String
+  languageId  String
+  type        String   // original|audio|subtitle|dub
+  content     Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  language    Language @relation(fields: [languageId], references: [id])
+  @@unique([contentId, languageId, type])
+  @@index([contentId])
+}
+model SubtitleTrack {
+  id         String   @id @default(cuid())
+  contentId  String
+  languageId String
+  source     String?
+  url        String?
+  format     String?  // vtt|srt|ttml
+  isDefault  Boolean  @default(false)
+  content    Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  language   Language @relation(fields: [languageId], references: [id])
+  @@index([contentId])
+}
+model AudioTrack {
+  id         String   @id @default(cuid())
+  contentId  String
+  languageId String
+  type       String?
+  label      String?
+  content    Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  language   Language @relation(fields: [languageId], references: [id])
+  @@index([contentId])
+}
+
+// --- Content (tipo genérico, não tabela por tipo) ---
+model Content {
+  id               String   @id @default(cuid())
+  type             String   // movie|short_film|documentary|series|...
+  slug             String   @unique
+  title            String
+  originalTitle    String?
+  subtitle         String?
+  description      String?  @db.Text
+  shortDescription String?
+  year             Int?     // releaseYear
+  releaseDate      DateTime?
+  durationSeconds  Int?     // 5400
+  status           String   @default("draft") // draft|published|unavailable|archived
+  poster           String?
+  backdrop         String?
+  trailer          String?
+  countryId        String?
+  regionId         String?
+  cityId           String?
+  language         String?
+  ageRating        String?
+  publishedAt      DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  deletedAt        DateTime?
+  // relations
+  country          Country? @relation(fields: [countryId], references: [id])
+  metadata         ContentMetadata?
+  languages        ContentLanguage[]
+  subtitles        SubtitleTrack[]
+  audios           AudioTrack[]
+  locations        ContentLocation[]
+  persons          ContentPerson[]
+  organizations    ContentOrganization[]
+  sources          ContentSource[]
+  categories       ContentCategory[]
+  tags             ContentTag[]
+  collections      CollectionItem[]
+  editorial        EditorialPlacement[]
+  placementsHero   EditorialHero[]
+  revisions        ContentRevision[]
+  scheduleItems    ScheduleItem[]
+  watchHistories   WatchHistory[]
+
+  @@index([slug])
+  @@index([type])
+  @@index([status])
+  @@index([countryId])
+  @@index([publishedAt])
+  @@index([createdAt])
+}
+model ContentMetadata {
+  id        String  @id @default(cuid())
+  contentId String  @unique
+  content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  data      Json?   // metadados extras sem poluir principal
+}
+model ContentLocation {
+  id           String   @id @default(cuid())
+  contentId    String
+  countryId    String?
+  regionId     String?
+  cityId       String?
+  relationType String   // production|setting|subject|origin|culture
+  content      Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  country      Country? @relation(fields: [countryId], references: [id])
+  region       Region?  @relation(fields: [regionId], references: [id])
+  city         City?    @relation(fields: [cityId], references: [id])
+  @@index([contentId])
+  @@index([countryId])
+}
+
+// --- Taxonomias ---
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  parentId    String?
+  parent      Category? @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  description String?
+  icon        String?
+  position    Int      @default(0)
+  contents    ContentCategory[]
+  @@index([parentId])
+}
+model ContentCategory {
+  contentId  String
+  categoryId String
+  content    Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  @@id([contentId, categoryId])
+  @@index([categoryId])
+}
+model Tag {
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
+  type String? // theme|region|culture|genre|...
+  contents ContentTag[]
+  @@index([type])
+}
+model ContentTag {
+  contentId String
+  tagId     String
+  content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  @@id([contentId, tagId])
+  @@index([tagId])
+}
+model Collection {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  subtitle    String?
+  description String? @db.Text
+  cover       String?
+  backdrop    String?
+  type        String?  // regional|editorial|seasonal
+  status      String   @default("published") // draft|scheduled|published|expired
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  items       CollectionItem[]
+  channelItems ChannelCollectionItem[]
+  placements  EditorialPlacement[]
+}
+model CollectionItem {
+  collectionId String
+  contentId    String
+  position     Int     @default(0)
+  featured     Boolean @default(false)
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  content      Content    @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  @@id([collectionId, contentId])
+  @@index([contentId])
+}
+model ChannelCollection {
+  id          String @id @default(cuid())
+  slug        String @unique
+  title       String
+  description String?
+  channels    ChannelCollectionItem[]
+}
+model ChannelCollectionItem {
+  collectionId String
+  channelId    String
+  position     Int @default(0)
+  collection   ChannelCollection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  channel      Channel           @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  @@id([collectionId, channelId])
+}
+
+// --- Person / Org ---
+model Person {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  shortBio  String?
+  biography String?  @db.Text
+  photo     String?
+  countryId String?
+  regionId  String?
+  country   Country? @relation(fields: [countryId], references: [id])
+  website   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  contents  ContentPerson[]
+  @@index([slug])
+}
+model ContentPerson {
+  contentId String
+  personId  String
+  role      String   // director|producer|writer|actor|...
+  credit    String?
+  order     Int      @default(0)
+  content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  person    Person  @relation(fields: [personId], references: [id], onDelete: Cascade)
+  @@id([contentId, personId, role])
+  @@index([personId])
+}
+model Organization {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  type        String   // production_company|university|tv_station|festival|...
+  description String?  @db.Text
+  logo        String?
+  cover       String?
+  website     String?
+  countryId   String?
+  regionId    String?
+  cityId      String?
+  country     Country? @relation(fields: [countryId], references: [id])
+  region      Region?  @relation(fields: [regionId], references: [id])
+  city        City?    @relation(fields: [cityId], references: [id])
+  contents    ContentOrganization[]
+  channels    Channel[]
+  @@index([type])
+  @@index([countryId])
+}
+model ContentOrganization {
+  contentId      String
+  organizationId String
+  role           String // production|distribution|broadcast|education|festival|archive
+  content        Content      @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  @@id([contentId, organizationId, role])
+}
+
+// --- Provider / Source ---
+model Provider {
+  id       String   @id @default(cuid())
+  slug     String   @unique
+  name     String
+  website  String?
+  contents ContentSource[]
+  channels ChannelSource[]
+}
+model ContentSource {
+  id            String   @id @default(cuid())
+  contentId     String
+  providerId    String
+  sourceUrl     String
+  embedUrl      String?
+  sourceType    String?  // video|playlist|live|...
+  embedAllowed  Boolean  @default(false)
+  embedStatus   String   @default("unknown") // verified|unknown|blocked|expired|stale
+  isPrimary     Boolean  @default(false)
+  priority      Int      @default(1)
+  status        String   @default("active") // active|inactive|unavailable|archived
+  lastCheckedAt DateTime?
+  content       Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  provider      Provider @relation(fields: [providerId], references: [id])
+  verifications SourceVerification[]
+  embedConfig   EmbedConfiguration?
+  @@index([contentId])
+  @@index([providerId])
+  @@index([status])
+  @@unique([providerId, sourceUrl])
+}
+model ChannelSource {
+  id            String   @id @default(cuid())
+  channelId     String
+  providerId    String
+  sourceUrl     String
+  embedUrl      String?
+  streamType    String?  // youtube|vimeo|hls|dash|html5|iframe
+  quality       String?
+  isPrimary     Boolean  @default(true)
+  isActive      Boolean  @default(true)
+  embedAllowed  Boolean  @default(false)
+  lastCheckedAt DateTime?
+  status        String   @default("unknown")
+  channel       Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  provider      Provider @relation(fields: [providerId], references: [id])
+  verifications SourceVerification[]
+  @@index([channelId])
+  @@index([providerId])
+}
+model SourceVerification {
+  id          String   @id @default(cuid())
+  contentSourceId String?
+  channelSourceId String?
+  checkedAt   DateTime @default(now())
+  embedStatus String   // verified|blocked|expired
+  httpStatus  Int?
+  errorCode   String?
+  notes       String?
+  checkedBy   String?  // manual|automated|imported
+  contentSource ContentSource? @relation(fields: [contentSourceId], references: [id], onDelete: Cascade)
+  channelSource ChannelSource? @relation(fields: [channelSourceId], references: [id], onDelete: Cascade)
+  @@index([checkedAt])
+}
+model EmbedConfiguration {
+  id              String   @id @default(cuid())
+  contentSourceId String   @unique
+  provider        String?
+  url             String?
+  parameters      Json?
+  aspectRatio     String?  // 16:9|9:16|4:3
+  autoplayAllowed Boolean @default(false)
+  controlsAllowed Boolean @default(true)
+  contentSource   ContentSource @relation(fields: [contentSourceId], references: [id], onDelete: Cascade)
+}
+
+// --- Channel / EPG ---
+model Channel {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  name           String
+  shortName      String?
+  description    String?  @db.Text
+  logo           String?
+  cover          String?
+  countryId      String?
+  regionId       String?
+  cityId         String?
+  organizationId String?
+  categoryId     String?
+  timezone       String   // America/Sao_Paulo
+  channelNumber  Int?
+  status         String   @default("unknown") // live|offline|scheduled|unknown|maintenance
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  country        Country? @relation(fields: [countryId], references: [id])
+  region         Region?  @relation(fields: [regionId], references: [id])
+  city           City?    @relation(fields: [cityId], references: [id])
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  sources        ChannelSource[]
+  scheduleItems  ScheduleItem[]
+  scheduleRules  ScheduleRule[]
+  collections    ChannelCollectionItem[]
+  @@index([slug])
+  @@index([countryId])
+  @@index([channelNumber])
+  @@index([status])
+}
+model ScheduleItem {
+  id          String   @id @default(cuid())
+  channelId   String
+  contentId   String?
+  title       String
+  description String?
+  startAt     DateTime // UTC
+  endAt       DateTime // UTC
+  timezone    String
+  status      String   @default("scheduled")
+  source      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  channel     Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  content     Content? @relation(fields: [contentId], references: [id], onDelete: SetNull)
+  @@index([channelId])
+  @@index([contentId])
+  @@index([startAt])
+  @@index([endAt])
+}
+model ScheduleRule {
+  id         String   @id @default(cuid())
+  channelId  String
+  contentId  String?
+  weekday    Int      // 0-6
+  startTime  String   // 17:00
+  duration   Int      // min
+  timezone   String
+  validFrom  DateTime?
+  validUntil DateTime?
+  isActive   Boolean  @default(true)
+  channel    Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  content    Content? @relation(fields: [contentId], references: [id], onDelete: SetNull)
+  exceptions ScheduleException[]
+  @@index([channelId])
+  @@index([weekday])
+}
+model ScheduleException {
+  id        String   @id @default(cuid())
+  ruleId    String
+  date      DateTime // dia específico
+  type      String   // cancelled|rescheduled|special_event|replacement
+  title     String?
+  startAt   DateTime?
+  endAt     DateTime?
+  rule      ScheduleRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+  @@index([ruleId])
+  @@index([date])
+}
+
+// --- Editorial ---
+model EditorialPlacement {
+  id           String   @id @default(cuid())
+  contentId    String?
+  collectionId String?
+  placement    String   // home_hero|home_featured|cinema_featured|...
+  position     Int      @default(0)
+  startAt      DateTime?
+  endAt        DateTime?
+  content      Content?    @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  collection   Collection? @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  @@index([placement])
+  @@index([position])
+}
+model EditorialHero {
+  id           String   @id @default(cuid())
+  title        String
+  subtitle     String?
+  image        String?
+  mobileImage  String?
+  contentId    String?
+  collectionId String?
+  cta          String?
+  position     Int      @default(0)
+  startAt      DateTime?
+  endAt        DateTime?
+  content      Content?    @relation(fields: [contentId], references: [id], onDelete: SetNull)
+  collection   Collection? @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+}
+
+// --- Import / Audit ---
+model ImportJob {
+  id           String   @id @default(cuid())
+  provider     String
+  source       String?
+  status       String   @default("queued") // queued|running|completed|partial|failed|cancelled
+  startedAt    DateTime?
+  finishedAt   DateTime?
+  itemsFound   Int      @default(0)
+  itemsCreated Int      @default(0)
+  itemsUpdated Int      @default(0)
+  itemsSkipped Int      @default(0)
+  errors       Json?
+  items        ImportItem[]
+  @@index([status])
+  @@index([provider])
+}
+model ImportItem {
+  id         String   @id @default(cuid())
+  jobId      String
+  externalId String
+  entityType String
+  entityId   String?
+  status     String   // created|updated|skipped|failed
+  error      String?
+  provider   String
+  job        ImportJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  @@unique([provider, externalId])
+  @@index([jobId])
+}
+model AuditLog {
+  id         String   @id @default(cuid())
+  entityType String
+  entityId   String
+  action     String
+  actor      String?
+  oldData    Json?
+  newData    Json?
+  createdAt  DateTime @default(now())
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+model SourceCheckLog {
+  id        String   @id @default(cuid())
+  sourceId  String?
+  timestamp DateTime @default(now())
+  status    String
+  response  String?
+  latency   Int?
+  error     String?
+  @@index([sourceId])
+  @@index([timestamp])
+}
+model ContentRevision {
+  id        String   @id @default(cuid())
+  contentId String
+  version   Int
+  data      Json
+  createdBy String?
+  createdAt DateTime @default(now())
+  content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  @@index([contentId])
+}
+model WatchHistory {
+  id              String   @id @default(cuid())
+  userId          String?
+  contentId       String
+  positionSeconds Int      @default(0)
+  durationSeconds Int?
+  completed       Boolean  @default(false)
+  lastWatchedAt   DateTime @default(now())
+  content         Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  @@index([userId, contentId])
+  @@index([lastWatchedAt])
+}
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String?  @unique
+  avatar    String?
+  createdAt DateTime @default(now())
+  favorites UserFavorite[]
+}
+model UserFavorite {
+  id         String   @id @default(cuid())
+  userId     String
+  entityType String   // movie|channel|collection
+  entityId   String
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId, entityType, entityId])
+  @@index([userId])
+}

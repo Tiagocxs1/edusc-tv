@@ -1,0 +1,9 @@
+{
+  "name": "EDUSC TV — YouTube Channel Monitor",
+  "nodes": [
+    { "type": "n8n-nodes-base.scheduleTrigger", "parameters": { "rule": { "interval": [{ "triggerAtHour": 17 }] } } },
+    { "type": "n8n-nodes-base.httpRequest", "parameters": { "url": "https://www.googleapis.com/youtube/v3/search?channelId={{$json.channelId}}&order=date" } },
+    { "type": "n8n-nodes-base.if", "parameters": { "conditions": { "string": [{ "value1": "={{ $json.externalId }}", "operation": "isNotEmpty" }] } } },
+    { "type": "n8n-nodes-base.httpRequest", "parameters": { "url": "https://edusc.com.br/api/content", "method": "POST", "headerParameters": { "Idempotency-Key": "={{ $json.externalId }}" } } }
+  ]
+}

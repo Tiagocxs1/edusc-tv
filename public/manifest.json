@@ -1,0 +1,13 @@
+{
+  "name": "EDUSC TV",
+  "short_name": "EDUSC TV",
+  "description": "Televisão digital cultural latino-americana",
+  "start_url": "/tv",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#e50914",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

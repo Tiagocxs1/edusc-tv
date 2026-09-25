@@ -1,0 +1,9 @@
+{
+  "name": "EDUSC TV — RSS Discovery",
+  "nodes": [
+    { "type": "n8n-nodes-base.cron", "parameters": { "rule": { "interval": [{ "field": "hours", "minutesInterval": 1 }] } } },
+    { "type": "n8n-nodes-base.httpRequest", "parameters": { "url": "={{ $json.url }}", "options": { "headers": { "If-None-Match": "={{ $json.etag }}" } } } },
+    { "type": "n8n-nodes-base.function", "parameters": { "functionCode": "return items.map(i=>({json:{...i.json, normalized: normalize(i.json)}}));" } },
+    { "type": "n8n-nodes-base.httpRequest", "parameters": { "url": "https://edusc.com.br/api/discovery/preview", "method": "POST" } }
+  ]
+}

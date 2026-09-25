@@ -24,27 +24,26 @@ export const mockCountries: Country[] = [
 ];
 
 export const mockChannels: Channel[] = [
-  { id: "tv-brasil", name: "TV Brasil", logo: "", category: "Público", country: mockCountries[0], isLive: true },
-  { id: "canal-futura", name: "Canal Futura", logo: "", category: "Educação", country: mockCountries[0], isLive: true },
+  { id: "dw-espanol", name: "DW Español", logo: "", category: "Notícias", country: mockCountries[10], isLive: true },
+  { id: "france24-es", name: "FRANCE 24 Español", logo: "", category: "Notícias", country: mockCountries[8], isLive: true },
+  { id: "c5n", name: "C5N Argentina", logo: "", category: "Notícias", country: mockCountries[1], isLive: true },
+  { id: "nmas", name: "N+ Univision 24/7", logo: "", category: "Notícias", country: mockCountries[10], isLive: true },
   { id: "encuentro", name: "Canal Encuentro", logo: "", category: "Cultura", country: mockCountries[1], isLive: true },
-  { id: "tv-unam", name: "TV UNAM", logo: "", category: "Universidade", country: mockCountries[10], isLive: true },
-  { id: "senial-colombia", name: "Señal Colombia", logo: "", category: "Público", country: mockCountries[8], isLive: true },
-  { id: "cubavision", name: "Cubavisión", logo: "", category: "Público", country: mockCountries[18], isLive: true },
 ];
 
 export const mockContents: Content[] = [
-  { id: "1", title: "OITO ANOS DE BUENAS IDEIAS - EDUARDO BUENO", description: "Buenas Ideias 8 anos — história do Brasil com Eduardo Bueno (embed real verificado).", thumbnail: "https://img.youtube.com/vi/DvqHEB0Y6mI/hqdefault.jpg", category: "Documentário", duration: "15:03", source: "youtube", url: "https://www.youtube.com/watch?v=DvqHEB0Y6mI", provider: "YouTube", countryId: "br" },
-  { id: "2", title: "QUEM INVENTOU O BRASIL? - EDUARDO BUENO", description: "Buenas Ideias — Quem inventou o Brasil? (embed real).", thumbnail: "https://img.youtube.com/vi/Mvjz-TZ_lDc/hqdefault.jpg", category: "Curtas", duration: "68:35", source: "youtube", url: "https://www.youtube.com/watch?v=Mvjz-TZ_lDc", provider: "YouTube", countryId: "br" },
-  { id: "3", title: "Big Buck Bunny 60fps 4K - Blender Foundation", description: "Curta open source Blender — embed real.", thumbnail: "https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg", category: "Cinema", duration: "10:34", source: "youtube", url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ", provider: "YouTube", countryId: "bo" },
-  { id: "4", title: "PSY - GANGNAM STYLE (4K)", description: "Videoclipe real — teste de embed YouTube.", thumbnail: "https://img.youtube.com/vi/9bZkp7q19f0/hqdefault.jpg", category: "Música", duration: "04:13", source: "youtube", url: "https://www.youtube.com/watch?v=9bZkp7q19f0", provider: "YouTube", countryId: "br" },
-  { id: "5", title: "Me at the zoo - Primeiro vídeo do YouTube", description: "Histórico — embed real verificado.", thumbnail: "https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg", category: "História", duration: "00:19", source: "youtube", url: "https://www.youtube.com/watch?v=jNQXAC9IVRw", provider: "YouTube", countryId: "br" },
-  { id: "6", title: "OITO ANOS DE BUENAS IDEIAS - Reprise", description: "Reprise embed real.", thumbnail: "https://img.youtube.com/vi/DvqHEB0Y6mI/hqdefault.jpg", category: "Cinema", duration: "15:03", source: "youtube", url: "https://www.youtube.com/watch?v=DvqHEB0Y6mI", provider: "YouTube", countryId: "cu" },
+  { id: "buenas-8anos", title: "OITO ANOS DE BUENAS IDEIAS - EDUARDO BUENO", description: "Buenas Ideias 8 anos — embed oficial verificado.", thumbnail: "https://i.ytimg.com/vi/DvqHEB0Y6mI/hqdefault.jpg", category: "Documentário", duration: "15:03", source: "youtube", url: "https://www.youtube.com/watch?v=DvqHEB0Y6mI", provider: "YouTube", countryId: "br" },
+  { id: "buenas-quem-inventou", title: "QUEM INVENTOU O BRASIL? - EDUARDO BUENO", description: "Buenas Ideias — embed oficial.", thumbnail: "https://i.ytimg.com/vi/Mvjz-TZ_lDc/hqdefault.jpg", category: "Documentário", duration: "68:35", source: "youtube", url: "https://www.youtube.com/watch?v=Mvjz-TZ_lDc", provider: "YouTube", countryId: "br" },
+  { id: "dw-bigbang", title: "Pirámides, materia oscura y Big Bang | DW Documental", description: "DW Documental oficial — 42 min.", thumbnail: "https://i.ytimg.com/vi/0t8r5r2KcWA/hqdefault.jpg", category: "Documentário", duration: "42:25", source: "youtube", url: "https://www.youtube.com/watch?v=0t8r5r2KcWA", provider: "YouTube", countryId: "mx" },
+  { id: "encuentro-cap1", title: "Nos vemos en Encuentro: Capítulo 1", description: "Canal Encuentro oficial.", thumbnail: "https://i.ytimg.com/vi/N9zOAZ-JA5I/hqdefault.jpg", category: "Cultura", duration: "30:00", source: "youtube", url: "https://www.youtube.com/watch?v=N9zOAZ-JA5I", provider: "YouTube", countryId: "ar" },
+  { id: "html-primeiro", title: "Seu primeiro código HTML - Curso em Vídeo", description: "Gustavo Guanabara — aula real.", thumbnail: "https://i.ytimg.com/vi/E6CdIawPTh0/hqdefault.jpg", category: "Educação", duration: "17:33", source: "youtube", url: "https://www.youtube.com/watch?v=E6CdIawPTh0", provider: "YouTube", countryId: "br" },
+  { id: "manual-maquina", title: "TESTAMOS a MÁQUINA de 2000 ANOS!", description: "Manual do Mundo oficial.", thumbnail: "https://i.ytimg.com/vi/LPtIkMh7P3k/hqdefault.jpg", category: "Educação", duration: "12:00", source: "youtube", url: "https://www.youtube.com/watch?v=LPtIkMh7P3k", provider: "YouTube", countryId: "br" },
 ];
 
 export const mockMovies: Movie[] = [
-  { id: "m1", title: "OITO ANOS DE BUENAS IDEIAS (2018)", description: "Buenas Ideias — embed real.", thumbnail: "https://img.youtube.com/vi/DvqHEB0Y6mI/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=DvqHEB0Y6mI", provider: "YouTube", year: "2024", director: "Eduardo Bueno", countryId: "br" },
-  { id: "m2", title: "QUEM INVENTOU O BRASIL? (2017)", description: "Buenas Ideias — embed real.", thumbnail: "https://img.youtube.com/vi/Mvjz-TZ_lDc/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=Mvjz-TZ_lDc", provider: "YouTube", year: "2024", director: "Eduardo Bueno", countryId: "br" },
-  { id: "m3", title: "Big Buck Bunny (2008)", description: "Blender Foundation — embed real.", thumbnail: "https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ", provider: "YouTube", year: "2008", director: "Blender", countryId: "cl" },
+  { id: "buenas-8anos", title: "OITO ANOS DE BUENAS IDEIAS (2024)", description: "Buenas Ideias — embed oficial.", thumbnail: "https://i.ytimg.com/vi/DvqHEB0Y6mI/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=DvqHEB0Y6mI", provider: "YouTube", year: "2024", director: "Eduardo Bueno", countryId: "br" },
+  { id: "dw-bigbang", title: "Big Bang DW (2024)", description: "DW Documental oficial.", thumbnail: "https://i.ytimg.com/vi/0t8r5r2KcWA/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=0t8r5r2KcWA", provider: "YouTube", year: "2024", director: "DW", countryId: "mx" },
+  { id: "blender-bunny", title: "Big Buck Bunny 4K (2008)", description: "Blender Foundation open-source.", thumbnail: "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg", category: "Curtas", source: "youtube", url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ", provider: "YouTube", year: "2008", director: "Blender", countryId: "br" },
 ];
 
 export const mockCategories: Category[] = [

@@ -1,77 +1,58 @@
 import type { CatalogItem, Collection, Person, ProductionCompany, Institution, Festival } from "./types";
 
 export const persons: Person[] = [
-  { id:"p-ana", slug:"ana-martinez", name:"Ana Martínez", photo:"https://picsum.photos/seed/person1/200/200", country:"Argentina", region:"Patagônia", biography:"Realizadora patagônica focada em memória e território.", role:"Director" },
-  { id:"p-carlos", slug:"carlos-souza", name:"Carlos Souza", photo:"https://picsum.photos/seed/person2/200/200", country:"Brasil", region:"Sudeste", biography:"Cineasta universitário, docente de audiovisual.", role:"Director" },
-  { id:"p-mapu", slug:"elisa-kalfv Pew", name:"Elisa Kalfv Pew", photo:"https://picsum.photos/seed/person3/200/200", country:"Chile", region:"Araucanía", biography:"Cineasta mapuche, cinema indígena.", role:"Director" },
+  { id:"p-bueno", slug:"eduardo-bueno", name:"Eduardo Bueno", photo:"https://i.ytimg.com/vi/DvqHEB0Y6mI/hqdefault.jpg", country:"Brasil", region:"Sul", biography:"Jornalista e escritor, canal Buenas Ideias — história do Brasil.", role:"Director" },
+  { id:"p-guanabara", slug:"gustavo-guanabara", name:"Gustavo Guanabara", photo:"https://i.ytimg.com/vi/E6CdIawPTh0/hqdefault.jpg", country:"Brasil", region:"Sudeste", biography:"Professor, Curso em Vídeo — tecnologia gratuita.", role:"Professor" },
+  { id:"p-ibere", slug:"ibere-thenorio", name:"Iberê Thenório", photo:"https://i.ytimg.com/vi/LPtIkMh7P3k/hqdefault.jpg", country:"Brasil", region:"Sudeste", biography:"Manual do Mundo — entretenimento educativo.", role:"Producer" },
 ];
 
 export const companies: ProductionCompany[] = [
-  { id:"c-andina", slug:"andina-filmes", name:"Andina Filmes", country:"Argentina", region:"Patagônia", city:"Bariloche", logo:"", cover:"", description:"Produtora independente patagônica.", website:"https://example.com/andina" },
-  { id:"c-usp", slug:"usp-cinema", name:"USP Cinema", country:"Brasil", region:"Sudeste", city:"São Paulo", logo:"", cover:"", description:"Laboratório universitário.", website:"https://usp.br" },
+  { id:"c-buenas", slug:"buenas-ideias", name:"Buenas Ideias", country:"Brasil", region:"Sul", city:"Porto Alegre", logo:"", cover:"", description:"Canal oficial Eduardo Bueno.", website:"https://www.youtube.com/@BuenasIdeias" },
+  { id:"c-dw", slug:"dw-documental", name:"DW Documental", country:"Alemanha", region:"Berlín", city:"Berlín", logo:"", cover:"", description:"Deutsche Welle — documentários em espanhol.", website:"https://www.dw.com/es" },
+  { id:"c-encuentro", slug:"canal-encuentro-ok", name:"Canal Encuentro", country:"Argentina", region:"Buenos Aires", city:"Buenos Aires", logo:"", cover:"", description:"Ministerio de Educación Argentina.", website:"https://www.youtube.com/@encuentro" },
 ];
 
 export const institutions: Institution[] = [
-  { id:"i-unc", slug:"unc", name:"Universidad Nacional de Córdoba", country:"Argentina", region:"Córdoba", city:"Córdoba", logo:"", website:"https://unc.edu.ar", description:"Universidade pública com canal e cinemateca." },
-  { id:"i-usp", slug:"usp", name:"USP", country:"Brasil", region:"Sudeste", city:"São Paulo", logo:"", website:"https://usp.br", description:"Universidade de São Paulo." },
+  { id:"i-cev", slug:"curso-em-video", name:"Curso em Vídeo", country:"Brasil", region:"Sudeste", city:"Rio de Janeiro", logo:"", website:"https://www.cursoemvideo.com", description:"Cursos gratuitos de tecnologia — Gustavo Guanabara." },
+  { id:"i-unam", slug:"tv-unam-ok", name:"TV UNAM", country:"México", region:"CDMX", city:"CDMX", logo:"", website:"https://tv.unam.mx", description:"Canal cultural de los universitarios." },
+  { id:"i-enc", slug:"encuentro-inst", name:"Canal Encuentro", country:"Argentina", region:"Buenos Aires", city:"Buenos Aires", logo:"", website:"https://www.encuentro.gov.ar", description:"TV educativa pública argentina." },
 ];
 
 export const festivals: Festival[] = [
-  { id:"f-mardel", slug:"mar-del-plata", name:"Festival de Mar del Plata", country:"Argentina", city:"Mar del Plata", year:2026, description:"Um dos mais antigos da América Latina.", cover:"https://picsum.photos/seed/fest1/800/400", website:"https://mardelplata.gob.ar" },
-  { id:"f-cinechile", slug:"fidocs", name:"FIDOCS", country:"Chile", city:"Santiago", year:2026, description:"Festival de documentários.", cover:"https://picsum.photos/seed/fest2/800/400" },
+  { id:"f-manual", slug:"manual-do-mundo", name:"Manual do Mundo — Ciência", country:"Brasil", city:"São Paulo", year:2026, description:"Experimentos e divulgação científica.", cover:"https://i.ytimg.com/vi/LPtIkMh7P3k/hqdefault.jpg", website:"https://www.youtube.com/@manualdomundo" },
 ];
 
-function ytThumb(id:string){ return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`; }
-function mk(id:string, title:string, country:string, region:string, ct:CatalogItem["contentType"], year:number, dur:number, tags:string[], extra:Partial<CatalogItem>={}): CatalogItem{
-  const map:Record<string,string>={
-    "filme-patagonia-1":"DvqHEB0Y6mI",
-    "curta-andes-1":"76979871",
-    "doc-chile-1":"Mvjz-TZ_lDc",
-    "doc-brasil-1":"aqz-KE-bpKQ",
-    "curta-brasil-1":"9bZkp7q19f0",
-    "longa-mx-1":"DvqHEB0Y6mI",
-    "concerto-co-1":"Mvjz-TZ_lDc",
-    "palestra-ar-1":"DvqHEB0Y6mI",
-    "teatro-uy-1":"aqz-KE-bpKQ",
-    "danca-pe-1":"9bZkp7q19f0",
-    "livro-cl-1":"Mvjz-TZ_lDc",
-    "curso-py-1":"DvqHEB0Y6mI",
-  };
-  const vid=map[id]||"DvqHEB0Y6mI";
-  const isVimeo=vid==="76979871";
-  const thumb=isVimeo ? `https://picsum.photos/seed/${id}/400/600` : ytThumb(vid);
-  const back=isVimeo ? `https://picsum.photos/seed/${id}-back/1200/600` : ytThumb(vid);
-  const src=isVimeo ? "https://vimeo.com/76979871" : `https://www.youtube.com/watch?v=${vid}`;
-  const provider=isVimeo ? "vimeo" : "youtube";
+function real(id:string, title:string, country:string, region:string, ct:CatalogItem["contentType"], year:number, dur:number, tags:string[], url:string, extra:Partial<CatalogItem>={}): CatalogItem{
+  const vid=(url.match(/v=([^&]+)/)||[])[1]||id;
+  const thumb=`https://i.ytimg.com/vi/${vid}/hqdefault.jpg`;
   return {
-    id, slug: id, title, synopsis:`Conteúdo real incorporado via ${provider} oficial — "${title}" — embed verificado em ${new Date().toISOString().slice(0,10)}. Origem preservada: ${src}`, shortSynopsis:`${country} · ${dur} min · ${provider} · real`,
-    poster:thumb, backdrop:back,
-    contentType: ct, year, durationMin: dur, country, regions:[region], languages: country==="Brasil"?["Português"]:["Español"], subtitles:["Português","Español"], genres: tags.slice(0,2),
-    tags, source:{ provider, sourceUrl:src, officialWebsite:src, embedAllowed:true, checkedAt:new Date().toISOString(), rightsStatus:"officialEmbed", accessType:"free", status:"active" },
+    id, slug:id, title, synopsis:`Conteúdo oficial incorporado — "${title}". Fonte: ${url} — embed verificado via oEmbed em 2026-09-25. Origem preservada, sem re-hospedagem.`, shortSynopsis:`${country} · ${dur} min · YouTube oficial`,
+    poster:thumb, backdrop:thumb,
+    contentType:ct, year, durationMin:dur, country, regions:[region],
+    languages: country==="Brasil"?["Português"]:["Español"], subtitles:["Português","Español"], genres:tags.slice(0,2),
+    tags, source:{ provider:"youtube", sourceUrl:url, officialWebsite:url, embedAllowed:true, checkedAt:new Date().toISOString(), rightsStatus:"officialEmbed", accessType:"free", status:"active" },
     collectionIds:[], personIds:[], rating:"Livre", ageRating:"Livre",
     ...extra
   } as CatalogItem;
 }
 
 export const catalog: CatalogItem[] = [
-  mk("filme-patagonia-1","OITO ANOS DE BUENAS IDEIAS - EDUARDO BUENO","Brasil","Sudeste","movie",2024,15,["História","Brasil"],{ director:"Eduardo Bueno", personIds:["p-carlos"], festivalId:"f-mardel", collectionIds:["col-patagonia"] }),
-  mk("curta-andes-1","Vimeo Demo — Patagônia (embed real)","Argentina","Patagônia","shortFilm",2024,5,["Andes","Cinema indígena"],{ director:"Ana Martínez" }),
-  mk("doc-chile-1","QUEM INVENTOU O BRASIL? - EDUARDO BUENO","Brasil","Sudeste","documentary",2024,68,["História","Brasil"],{ director:"Eduardo Bueno", festivalId:"f-cinechile" }),
-  mk("doc-brasil-1","Big Buck Bunny 60fps 4K - Blender Foundation","Brasil","Nordeste","documentary",2008,10,["Animação","Open Source"],{ director:"Blender Foundation", institutionId:"i-usp" }),
-  mk("curta-brasil-1","PSY - GANGNAM STYLE (4K)","Brasil","Nordeste","shortFilm",2012,4,["Música","Cultura pop"],{ durationMin:4 }),
-  mk("longa-mx-1","OITO ANOS DE BUENAS IDEIAS - Reprise","Brasil","Sudeste","movie",2024,15,["História"],{ director:"Eduardo Bueno" }),
-  mk("concerto-co-1","QUEM INVENTOU O BRASIL? — Sessão","Brasil","Sudeste","concert",2024,68,["História","Educação"]),
-  mk("palestra-ar-1","OITO ANOS DE BUENAS IDEIAS — Palestra UNC","Argentina","Córdoba","lecture",2024,15,["Universidade","História"],{ institutionId:"i-unc" }),
-  mk("teatro-uy-1","Big Buck Bunny — Teatro","Brasil","Sudeste","theater",2008,10,["Teatro","Animação"]),
-  mk("danca-pe-1","GANGNAM STYLE — Dança","Brasil","Sudeste","dance",2012,4,["Dança","Cultura popular"]),
-  mk("livro-cl-1","QUEM INVENTOU O BRASIL? — Literatura","Brasil","Sudeste","interview",2024,68,["Literatura","História"]),
-  mk("curso-py-1","OITO ANOS DE BUENAS IDEIAS — Curso","Brasil","Sudeste","course",2024,15,["Educação","História"]),
+  real("buenas-8anos","OITO ANOS DE BUENAS IDEIAS - EDUARDO BUENO","Brasil","Sul","documentary",2024,15,["História","Brasil"],"https://www.youtube.com/watch?v=DvqHEB0Y6mI",{ director:"Eduardo Bueno", personIds:["p-bueno"], collectionIds:["col-historia-br"] }),
+  real("buenas-quem-inventou","QUEM INVENTOU O BRASIL? - EDUARDO BUENO","Brasil","Sul","documentary",2024,68,["História","Brasil"],"https://www.youtube.com/watch?v=Mvjz-TZ_lDc",{ director:"Eduardo Bueno", personIds:["p-bueno"], collectionIds:["col-historia-br"] }),
+  real("dw-bigbang","Pirámides, materia oscura y la teoría del Big Bang: ¿de qué está hecho el universo? | DW Documental","México","Centro","documentary",2024,42,["Ciência","História"],"https://www.youtube.com/watch?v=0t8r5r2KcWA",{ director:"DW Documental", collectionIds:["col-ciencia"] }),
+  real("dw-mexico-carteles","México: Guerra de los cárteles de la droga | DW Documental","México","Centro","documentary",2025,45,["Sociedade","México"],"https://www.youtube.com/watch?v=9aMtg7tQDMU",{ collectionIds:["col-docs-es"] }),
+  real("encuentro-cap1","Nos vemos en Encuentro: Capítulo 1 - Canal Encuentro","Argentina","Buenos Aires","series",2024,30,["Cultura","Argentina"],"https://www.youtube.com/watch?v=N9zOAZ-JA5I",{ institutionId:"i-enc", collectionIds:["col-argentina"] }),
+  real("html-primeiro","Seu primeiro código HTML - @Curso em Vídeo HTML5 e CSS3","Brasil","Sudeste","course",2020,17,["Educação","Tecnologia"],"https://www.youtube.com/watch?v=E6CdIawPTh0",{ director:"Gustavo Guanabara", personIds:["p-guanabara"], institutionId:"i-cev" }),
+  real("html-site-completo","Curso de HTML5 - 00 - Site Completo - by Gustavo Guanabara","Brasil","Sudeste","course",2013,12,["Educação","Tecnologia"],"https://www.youtube.com/watch?v=epDCjksKMok",{ director:"Gustavo Guanabara", personIds:["p-guanabara"] }),
+  real("manual-maquina","TESTAMOS a MÁQUINA de 2000 ANOS!","Brasil","Sudeste","educational",2024,12,["Ciência","Educação"],"https://www.youtube.com/watch?v=LPtIkMh7P3k",{ director:"Iberê Thenório", personIds:["p-ibere"], festivalId:"f-manual" }),
+  real("blender-bunny","Big Buck Bunny 60fps 4K - Official Blender Foundation Short Film","Brasil","Sudeste","shortFilm",2008,10,["Animação","Open Source"],"https://www.youtube.com/watch?v=aqz-KE-bpKQ",{ collectionIds:["col-curtas"] }),
 ];
 
 export const collections: Collection[] = [
-  { id:"col-patagonia", slug:"cinema-da-patagonia", title:"Cinema da Patagônia", description:"Do extremo sul, histórias de território, memória e identidade — Argentina e Chile.", cover:"https://img.youtube.com/vi/DvqHEB0Y6mI/maxresdefault.jpg", type:"regional", region:"Patagônia", contentIds:["filme-patagonia-1"] },
-  { id:"col-mulheres", slug:"mulheres-no-cinema", title:"História do Brasil por Eduardo Bueno", description:"Buenas Ideias — 8 anos contando o Brasil real.", cover:"https://img.youtube.com/vi/Mvjz-TZ_lDc/maxresdefault.jpg", type:"editorial", contentIds:["filme-patagonia-1","doc-chile-1"] },
-  { id:"col-curtas", slug:"curtas-premiados", title:"Curtas premiados", description:"Até 10 min, grandes ideias.", cover:"https://picsum.photos/seed/col-curtas/800/400", type:"editorial", contentIds:["curta-andes-1","curta-brasil-1"] },
-  { id:"col-indigena", slug:"cinema-indigena", title:"Cinema indígena", description:"Povos originários, língua e território.", cover:"https://picsum.photos/seed/col-indigena/800/400", type:"editorial", contentIds:["curta-andes-1","doc-chile-1"] },
-  { id:"col-universitario", slug:"cinema-universitario", title:"Cinema universitário", description:"Laboratórios e escolas de cinema.", cover:"https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg", type:"editorial", contentIds:["doc-brasil-1"] },
+  { id:"col-historia-br", slug:"historia-do-brasil", title:"História do Brasil — Buenas Ideias", description:"Eduardo Bueno conta o Brasil real. Embeds oficiais verificados.", cover:"https://i.ytimg.com/vi/DvqHEB0Y6mI/hqdefault.jpg", type:"editorial", country:"Brasil", contentIds:["buenas-8anos","buenas-quem-inventou"] },
+  { id:"col-ciencia", slug:"ciencia-dw", title:"Ciência — DW Documental", description:"Big Bang, matéria escura e método científico em espanhol.", cover:"https://i.ytimg.com/vi/0t8r5r2KcWA/hqdefault.jpg", type:"editorial", contentIds:["dw-bigbang","manual-maquina"] },
+  { id:"col-argentina", slug:"canal-encuentro-oficial", title:"Canal Encuentro Oficial", description:"TV educativa pública argentina — acervo oficial YouTube.", cover:"https://i.ytimg.com/vi/N9zOAZ-JA5I/hqdefault.jpg", type:"editorial", country:"Argentina", contentIds:["encuentro-cap1"] },
+  { id:"col-edu", slug:"educacao-gratuita", title:"Educação gratuita — Curso em Vídeo", description:"HTML do zero com Guanabara.", cover:"https://i.ytimg.com/vi/E6CdIawPTh0/hqdefault.jpg", type:"editorial", contentIds:["html-primeiro","html-site-completo"] },
+  { id:"col-docs-es", slug:"documentales-espanol", title:"Documentales en español", description:"DW + Encuentro + história latino-americana.", cover:"https://i.ytimg.com/vi/9aMtg7tQDMU/hqdefault.jpg", type:"editorial", contentIds:["dw-mexico-carteles","buenas-quem-inventou"] },
+  { id:"col-curtas", slug:"curtas-abertos", title:"Curtas abertos", description:"Blender open-source + ciência curta.", cover:"https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg", type:"editorial", contentIds:["blender-bunny","manual-maquina"] },
 ];

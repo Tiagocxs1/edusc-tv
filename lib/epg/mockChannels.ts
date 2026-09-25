@@ -14,24 +14,19 @@ export const epgCountries: EpgCountry[] = [
 ];
 
 const progs: Record<string, EpgProgram> = {
-  culto: { id:"p1", title:"Cultura em Movimento", slug:"cultura-em-movimento", description:"Revista cultural com música e território.", thumbnail:"https://picsum.photos/seed/epg1/400/225", category:"Cultura", durationMin:60 },
-  cinema: { id:"p2", title:"Cinema Latino", slug:"cinema-latino", description:"Filmes e entrevistas do cinema independente.", thumbnail:"https://picsum.photos/seed/epg2/400/225", category:"Cinema", durationMin:120 },
-  noticias: { id:"p3", title:"Notícias Regionais", slug:"noticias-regionais", description:"Informação local e comunitária.", thumbnail:"https://picsum.photos/seed/epg3/400/225", category:"Notícias", durationMin:30 },
-  musica: { id:"p4", title:"Música del Sur", slug:"musica-del-sur", description:"Shows e festivais.", thumbnail:"https://picsum.photos/seed/epg4/400/225", category:"Música", durationMin:60 },
-  doc: { id:"p5", title:"Documentários da América", slug:"documentarios-america", description:"Docs que percorrem o continente.", thumbnail:"https://picsum.photos/seed/epg5/400/225", category:"Documentários", durationMin:52 },
-  univ: { id:"p6", title:"Universidad y Territorio", slug:"universidad-territorio", description:"Extensão universitária na prática.", thumbnail:"https://picsum.photos/seed/epg6/400/225", category:"Educativo", durationMin:45 },
+  dwvivo: { id:"p-dw", title:"DW Español — En vivo 24h", slug:"dw-en-vivo", description:"Noticias internacionales, economía y reportajes desde Alemania para Latinoamérica. Sinal oficial DW Español.", thumbnail:"https://i.ytimg.com/vi/yZh3xsFqCt8/hqdefault.jpg", category:"Notícias", durationMin:1440 },
+  f24vivo: { id:"p-f24", title:"FRANCE 24 Español — EN VIVO 24h", slug:"france24-en-vivo", description:"Información internacional y noticias del mundo 24 horas. Sinal oficial France 24 Español.", thumbnail:"https://i.ytimg.com/vi/zTv0hCakAhg/hqdefault.jpg", category:"Notícias", durationMin:1440 },
+  c5n: { id:"p-c5n", title:"C5N EN VIVO — Noticias Argentina 24h", slug:"c5n-en-vivo", description:"Toda la información en un solo lugar. Líder de noticias de Argentina.", thumbnail:"https://i.ytimg.com/vi/Tb2MLYWghO8/hqdefault.jpg", category:"Notícias", durationMin:1440 },
+  nmas: { id:"p-nmas", title:"Noticias N+ Univision 24/7", slug:"nmas-24-7", description:"Señal en VIVO de Noticias N+ Univision — EUA, comunidade latina e atualidade mundial.", thumbnail:"https://i.ytimg.com/vi/V4C7VNfRATA/hqdefault.jpg", category:"Notícias", durationMin:1440 },
+  encuentro: { id:"p-enc", title:"Canal Encuentro — Transmisión", slug:"encuentro-transmision", description:"Canal oficial Encuentro (Ministerio de Educación Argentina). Ciencia, historia y cultura.", thumbnail:"https://i.ytimg.com/vi/UXnAJqXF4VU/hqdefault.jpg", category:"Cultura", durationMin:60 },
+  encuentro2: { id:"p-enc2", title:"Nos vemos en Encuentro: Capítulo 1", slug:"nos-vemos-encuentro", description:"Serie oficial Canal Encuentro.", thumbnail:"https://i.ytimg.com/vi/N9zOAZ-JA5I/hqdefault.jpg", category:"Cultura", durationMin:45 },
 };
 
-// helper to make ISO for today at HH:MM in channel timezone — simplified: store as local today using wall time + timezone offset via Intl (approx)
 function todayAt(h:number,m:number, tz:string){
   const now=new Date();
-  // create date at h:m in tz then convert to ISO UTC via locale trick
   const fmt=new Intl.DateTimeFormat("en-CA",{ timeZone: tz, year:"numeric", month:"2-digit", day:"2-digit" }).format(now);
-  // fmt YYYY-MM-DD
   const iso=`${fmt}T${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:00`;
-  // interpret as wall time in tz -> to UTC
   const wall=new Date(`${iso}`);
-  // crude: get offset by comparing UTC vs tz at that moment
   const tzOffset = (()=>{ try{ const a=new Date(wall.toLocaleString("en-US",{timeZone:tz})); const b=new Date(wall.toLocaleString("en-US",{timeZone:"UTC"})); return b.getTime()-a.getTime(); }catch{ return 0; }})();
   return new Date(wall.getTime()+tzOffset).toISOString();
 }
@@ -44,38 +39,27 @@ function mkSchedule(channelId:string, tz:string, items: { h:number;m:number; pro
   });
 }
 
+// Fontes 100% reais, embed verificado via oEmbed em 2026-09-25. Sem test-streams, sem example.com.
 export const epgChannels: EpgChannel[] = [
-  { id:"cordoba-cultural", slug:"canal-cultural-cordoba", name:"Canal Cultural Córdoba", shortName:"Cultural CBA", description:"TV pública e universitária de Córdoba.", country: epgCountries[0], region:"Córdoba", city:"Córdoba", language:"es", logo:"", cover:"", category:"Cultural", website:"https://example.com", timezone:"America/Argentina/Buenos_Aires", channelNumber:10, is24h:false, status:"LIVE", isActive:true,
-    source:{ type:"hls", provider:"hls", url:"https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", isLive:true },
-    schedule: mkSchedule("cordoba-cultural","America/Argentina/Buenos_Aires",[{h:17,m:0,prog:progs.culto},{h:18,m:0,prog:progs.cinema},{h:20,m:0,prog:progs.doc}]),
+  { id:"dw-espanol", slug:"dw-espanol", name:"DW Español", shortName:"DW ES", description:"La cadena internacional de Alemania. Noticias y análisis en español para Latinoamérica. Sinal oficial.", country: epgCountries[8], region:"Berlín", city:"Berlín", language:"es", logo:"", cover:"", category:"Notícias", website:"https://www.dw.com/es", timezone:"America/Mexico_City", channelNumber:1, is24h:true, status:"LIVE", isActive:true,
+    source:{ type:"youtube", provider:"youtube", url:"https://www.youtube.com/watch?v=yZh3xsFqCt8", isLive:true, quality:"AUTO" },
+    schedule: mkSchedule("dw-espanol","America/Mexico_City",[{h:0,m:0,prog:progs.dwvivo, durMin:1440}]),
   },
-  { id:"tv-brasil", slug:"tv-brasil", name:"TV Brasil", shortName:"TV Brasil", description:"Empresa Brasil de Comunicação.", country: epgCountries[1], region:"Distrito Federal", city:"Brasília", language:"pt", logo:"", cover:"", category:"Público", timezone:"America/Sao_Paulo", channelNumber:2, is24h:true, status:"LIVE", isActive:true,
-    source:{ type:"youtube", provider:"youtube", url:"https://www.youtube.com/watch?v=jNQXAC9IVRw", isLive:true },
-    schedule: mkSchedule("tv-brasil","America/Sao_Paulo",[{h:17,m:30,prog:progs.noticias},{h:18,m:0,prog:progs.doc},{h:19,m:0,prog:progs.musica}]),
+  { id:"france24-es", slug:"france24-espanol", name:"FRANCE 24 Español", shortName:"F24 ES", description:"Información internacional y noticias del mundo 24 horas. Servicio público francés.", country: epgCountries[8], region:"París", city:"París", language:"es", logo:"", cover:"", category:"Notícias", website:"https://www.france24.com/es", timezone:"America/Bogota", channelNumber:2, is24h:true, status:"LIVE", isActive:true,
+    source:{ type:"youtube", provider:"youtube", url:"https://www.youtube.com/watch?v=zTv0hCakAhg", isLive:true, quality:"AUTO" },
+    schedule: mkSchedule("france24-es","America/Bogota",[{h:0,m:0,prog:progs.f24vivo, durMin:1440}]),
   },
-  { id:"unam-tv", slug:"tv-unam", name:"TV UNAM", shortName:"TV UNAM", description:"Universidad Nacional Autónoma de México.", country: epgCountries[8], region:"Ciudad de México", city:"CDMX", language:"es", logo:"", cover:"", category:"Universitário", timezone:"America/Mexico_City", channelNumber:20, is24h:false, status:"LIVE", isActive:true,
-    source:{ type:"vimeo", provider:"vimeo", url:"https://vimeo.com/76979871", isLive:false },
-    schedule: mkSchedule("unam-tv","America/Mexico_City",[{h:17,m:0,prog:progs.univ},{h:18,m:0,prog:progs.culto}]),
+  { id:"c5n", slug:"c5n-argentina", name:"C5N Argentina", shortName:"C5N", description:"Líder de noticias de Argentina. Transmisión 24 horas.", country: epgCountries[0], region:"Buenos Aires", city:"Buenos Aires", language:"es", logo:"", cover:"", category:"Notícias", website:"https://www.c5n.com", timezone:"America/Argentina/Buenos_Aires", channelNumber:3, is24h:true, status:"LIVE", isActive:true,
+    source:{ type:"youtube", provider:"youtube", url:"https://www.youtube.com/watch?v=Tb2MLYWghO8", isLive:true, quality:"AUTO" },
+    schedule: mkSchedule("c5n","America/Argentina/Buenos_Aires",[{h:0,m:0,prog:progs.c5n, durMin:1440}]),
   },
-  { id:"uchile-tv", slug:"uchile-tv", name:"UChile TV", shortName:"UChile", description:"Universidad de Chile.", country: epgCountries[2], region:"Santiago", city:"Santiago", language:"es", logo:"", cover:"", category:"Universitário", timezone:"America/Santiago", channelNumber:11, is24h:false, status:"LIVE", isActive:true,
-    source:{ type:"hls", provider:"hls", url:"https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", isLive:true },
-    schedule: mkSchedule("uchile-tv","America/Santiago",[{h:16,m:0,prog:progs.doc},{h:17,m:0,prog:progs.culto}]),
+  { id:"nmas", slug:"nmas-univision", name:"Noticias N+ Univision", shortName:"N+ 24/7", description:"Señal en VIVO 24/7 — EUA, comunidade latina e mundo.", country: epgCountries[8], region:"Ciudad de México", city:"CDMX", language:"es", logo:"", cover:"", category:"Notícias", website:"https://www.univision.com", timezone:"America/Mexico_City", channelNumber:4, is24h:true, status:"LIVE", isActive:true,
+    source:{ type:"youtube", provider:"youtube", url:"https://www.youtube.com/watch?v=V4C7VNfRATA", isLive:true, quality:"AUTO" },
+    schedule: mkSchedule("nmas","America/Mexico_City",[{h:0,m:0,prog:progs.nmas, durMin:1440}]),
   },
-  { id:"senial-co", slug:"senial-colombia", name:"Señal Colombia", shortName:"Señal CO", description:"TV cultural pública.", country: epgCountries[7], region:"Bogotá", city:"Bogotá", language:"es", logo:"", cover:"", category:"Cultural", timezone:"America/Bogota", channelNumber:5, is24h:true, status:"LIVE", isActive:true,
-    source:{ type:"html5", provider:"html5", url:"https://test-videos.co.uk/vids/sintel/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4", isLive:false },
-    schedule: mkSchedule("senial-co","America/Bogota",[{h:17,m:0,prog:progs.musica},{h:19,m:0,prog:progs.cinema}]),
-  },
-  { id:"cubavision", slug:"cubavision", name:"Cubavisión", shortName:"Cubavisión", description:"Televisión Cubana — sinal ao vivo via YouTube oficial.", country: epgCountries[9], region:"La Habana", city:"La Habana", language:"es", logo:"", cover:"", category:"Público", timezone:"America/Havana", channelNumber:6, is24h:true, status:"LIVE", isActive:true,
-    source:{ type:"youtube", provider:"youtube", url:"https://www.youtube.com/watch?v=9bZkp7q19f0", isLive:false },
-    schedule: mkSchedule("cubavision","America/Havana",[{h:17,m:0,prog:progs.culto},{h:18,m:30,prog:progs.musica}]),
-  },
-  { id:"musica-sur", slug:"musica-del-sur", name:"Música del Sur", shortName:"Música Sur", description:"Música latina independente — ao vivo verificado.", country: epgCountries[0], region:"Buenos Aires", city:"Buenos Aires", language:"es", logo:"", cover:"", category:"Música", timezone:"America/Argentina/Buenos_Aires", channelNumber:12, is24h:true, status:"LIVE", isActive:true,
-    source:{ type:"youtube", provider:"youtube", url:"https://www.youtube.com/watch?v=aqz-KE-bpKQ", isLive:false },
-    schedule: mkSchedule("musica-sur","America/Argentina/Buenos_Aires",[{h:19,m:0,prog:progs.musica}]),
-  },
-  { id:"patagonia-cultura", slug:"patagonia-cultura", name:"Patagonia Cultura", shortName:"Patagonia", description:"Cultura da Patagônia — transmissão verificada.", country: epgCountries[3], region:"Montevideo", city:"Montevideo", language:"es", logo:"", cover:"", category:"Regional", timezone:"America/Montevideo", channelNumber:3, is24h:false, status:"LIVE", isActive:true,
-    source:{ type:"hls", provider:"hls", url:"https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", isLive:true },
-    schedule: mkSchedule("patagonia-cultura","America/Montevideo",[{h:17,m:0,prog:progs.doc}]),
+  { id:"encuentro", slug:"canal-encuentro", name:"Canal Encuentro", shortName:"Encuentro", description:"Canal oficial del Ministerio de Educación Argentina. Ciencia, historia, cultura.", country: epgCountries[0], region:"Buenos Aires", city:"Buenos Aires", language:"es", logo:"", cover:"", category:"Cultural", website:"https://www.encuentro.gov.ar", timezone:"America/Argentina/Buenos_Aires", channelNumber:10, is24h:false, status:"LIVE", isActive:true,
+    source:{ type:"youtube", provider:"youtube", url:"https://www.youtube.com/watch?v=UXnAJqXF4VU", isLive:false, quality:"AUTO" },
+    schedule: mkSchedule("encuentro","America/Argentina/Buenos_Aires",[{h:17,m:0,prog:progs.encuentro},{h:18,m:0,prog:progs.encuentro2}]),
   },
 ];
 

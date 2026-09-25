@@ -4,10 +4,11 @@ import Link from "next/link";
 
 export type HeroItem = { id:string; title:string; subtitle:string; description:string; backdrop:string; type:string; country:string; category:string; href:string; cta:string };
 
+// Hero 100% real — hrefs batem com slugs do catálogo e do player
 const ITEMS: HeroItem[] = [
-  { id:"h1", title:"OITO ANOS DE BUENAS IDEIAS - EDUARDO BUENO", subtitle:"CINEMA · História · Brasil · 2024", description:"Buenas Ideias 8 anos — história do Brasil com Eduardo Bueno. Embed real verificado via YouTube oficial.", backdrop:"https://img.youtube.com/vi/DvqHEB0Y6mI/maxresdefault.jpg", type:"Documentário", country:"BR", category:"Cinema", href:"/tv/filmes/filme-patagonia-1", cta:"Assistir agora" },
-  { id:"h2", title:"QUEM INVENTOU O BRASIL? - EDUARDO BUENO", subtitle:"DOCUMENTÁRIO · História · Brasil · 2024", description:"Quem inventou o Brasil? — Buenas Ideias. Embed real verificado.", backdrop:"https://img.youtube.com/vi/Mvjz-TZ_lDc/maxresdefault.jpg", type:"Documentário", country:"BR", category:"História", href:"/tv/filmes/doc-chile-1", cta:"Assistir agora" },
-  { id:"h3", title:"Big Buck Bunny 60fps 4K - Blender Foundation", subtitle:"CINEMA · Animação · 2008", description:"Curta open source Blender — embed real verificado.", backdrop:"https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg", type:"Animação", country:"BR", category:"Cinema", href:"/tv/filmes/doc-brasil-1", cta:"Assistir agora" },
+  { id:"buenas-8anos", title:"OITO ANOS DE BUENAS IDEIAS - EDUARDO BUENO", subtitle:"HISTÓRIA · Brasil · 2024 · YouTube oficial", description:"Buenas Ideias 8 anos — embed oficial verificado. Clique e o mesmo vídeo abre no player.", backdrop:"https://i.ytimg.com/vi/DvqHEB0Y6mI/maxresdefault.jpg", type:"Documentário", country:"BR", category:"História", href:"/tv/filmes/buenas-8anos", cta:"Assistir agora" },
+  { id:"dw-bigbang", title:"Pirámides, materia oscura y Big Bang | DW Documental", subtitle:"CIÊNCIA · DW Documental · 2024 · 42 min", description:"DW oficial — partículas, pirâmides e matéria escura. Mesmo ID no card e no player.", backdrop:"https://i.ytimg.com/vi/0t8r5r2KcWA/maxresdefault.jpg", type:"Documentário", country:"MX", category:"Ciência", href:"/tv/filmes/dw-bigbang", cta:"Assistir agora" },
+  { id:"dw-espanol-live", title:"DW Español — En vivo 24h", subtitle:"AO VIVO · Notícias · Latinoamérica", description:"Sinal oficial DW Español 24h. Abre o canal com o mesmo stream.", backdrop:"https://i.ytimg.com/vi/yZh3xsFqCt8/maxresdefault.jpg", type:"Ao Vivo", country:"MX", category:"Notícias", href:"/tv/canais/dw-espanol", cta:"Assistir ao vivo" },
 ];
 
 export function HeroDynamic(){
@@ -22,7 +23,6 @@ export function HeroDynamic(){
     return ()=> clearInterval(t);
   },[paused]);
 
-  // swipe
   useEffect(()=>{
     const el=ref.current; if(!el) return;
     let sx=0;
@@ -39,7 +39,6 @@ export function HeroDynamic(){
       if(e.key==="Enter") window.location.href=cur.href;
     }}>
       <div className="relative h-[56vh] min-h-[380px] max-h-[560px] md:h-[62vh]">
-        {/* crossfade */}
         {ITEMS.map((it,i)=> (
           <div key={it.id} className={`absolute inset-0 transition-opacity duration-700 ${i===idx ? "opacity-100" : "opacity-0"}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}

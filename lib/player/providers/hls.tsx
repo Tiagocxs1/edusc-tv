@@ -48,5 +48,5 @@ export function HLSPlayer({ src, poster, isLive, onReady, onTime, onError, onLev
       video.load();
     };
   },[src,isLive,onReady,onTime,onError,onLevels]);
-  return <video ref={ref} poster={poster} controls playsInline preload="metadata" className="h-full w-full bg-black" />;
+  return <video ref={ref} poster={poster} controls autoPlay playsInline preload="metadata" className="h-full w-full bg-black" />;
 }

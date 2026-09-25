@@ -18,5 +18,5 @@ export function Html5Player({ src, poster, onReady, onTime, onPlay, onPause, onE
     v.addEventListener("error", f);
     return ()=>{ v.removeEventListener("loadedmetadata", a); v.removeEventListener("timeupdate", b); v.removeEventListener("play", c); v.removeEventListener("pause", d); v.removeEventListener("ended", e); v.removeEventListener("error", f); };
   },[onReady,onTime,onPlay,onPause,onEnded,onError]);
-  return <video ref={ref} src={src} poster={poster} controls playsInline preload="metadata" className="h-full w-full bg-black" />;
+  return <video ref={ref} src={src} poster={poster} controls autoPlay playsInline preload="metadata" className="h-full w-full bg-black" />;
 }

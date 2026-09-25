@@ -56,11 +56,11 @@ export function UniversalPlayer({ source, aspect="16:9", autoPlay=false }: { sou
   };
 
   let inner: React.ReactNode;
-  if(kind==="youtube") inner=<YouTubePlayer sourceUrl={source.sourceUrl} videoId={source.videoId} onReady={common.onReady} onError={common.onError}/>;
-  else if(kind==="vimeo") inner=<VimeoPlayer sourceUrl={source.sourceUrl} videoId={source.videoId} onReady={common.onReady} onError={common.onError}/>;
+  if(kind==="youtube") inner=<YouTubePlayer sourceUrl={source.sourceUrl} videoId={source.videoId} autoPlay onReady={common.onReady} onError={common.onError}/>;
+  else if(kind==="vimeo") inner=<VimeoPlayer sourceUrl={source.sourceUrl} videoId={source.videoId} autoPlay onReady={common.onReady} onError={common.onError}/>;
   else if(kind==="hls" && source.streamUrl) inner=<HLSPlayer src={source.streamUrl} poster={source.poster} isLive={source.isLive} onReady={common.onReady} onError={common.onError} onLevels={setLevels} onTime={(t,d)=> playerState.setTime(t,d)}/>;
   else if(kind==="html5" && source.streamUrl) inner=<Html5Player src={source.streamUrl} poster={source.poster} onReady={common.onReady} onError={common.onError} onTime={(t,d)=> playerState.setTime(t,d)}/>;
-  else if(kind==="iframe" && embed) inner=<IframeProvider src={embed} onReady={common.onReady} onError={common.onError}/>;
+  else if(kind==="iframe" && embed) inner=<IframeProvider src={`${embed}${embed.includes("?")?"&":"?"}autoplay=1`} onReady={common.onReady} onError={common.onError}/>;
   else inner=<div className="grid place-items-center p-8 text-sm text-[#8a8a8a]">Não foi possível identificar a fonte deste conteúdo.<br/><a href={source.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex rounded-full bg-white px-4 py-2 text-xs font-bold text-black">Assistir na fonte original ↗</a></div>;
 
   return (

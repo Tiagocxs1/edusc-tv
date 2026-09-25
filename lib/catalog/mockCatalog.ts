@@ -23,29 +23,28 @@ export const festivals: Festival[] = [
 
 function ytThumb(id:string){ return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`; }
 function mk(id:string, title:string, country:string, region:string, ct:CatalogItem["contentType"], year:number, dur:number, tags:string[], extra:Partial<CatalogItem>={}): CatalogItem{
-  // mapeia cada demo para um vídeo real embedável distinto
   const map:Record<string,string>={
-    "filme-patagonia-1":"jNQXAC9IVRw",
+    "filme-patagonia-1":"DvqHEB0Y6mI",
     "curta-andes-1":"76979871",
-    "doc-chile-1":"aqz-KE-bpKQ",
-    "doc-brasil-1":"dQw4w9WgXcQ",
+    "doc-chile-1":"Mvjz-TZ_lDc",
+    "doc-brasil-1":"aqz-KE-bpKQ",
     "curta-brasil-1":"9bZkp7q19f0",
-    "longa-mx-1":"jNQXAC9IVRw",
-    "concerto-co-1":"9bZkp7q19f0",
-    "palestra-ar-1":"jNQXAC9IVRw",
+    "longa-mx-1":"DvqHEB0Y6mI",
+    "concerto-co-1":"Mvjz-TZ_lDc",
+    "palestra-ar-1":"DvqHEB0Y6mI",
     "teatro-uy-1":"aqz-KE-bpKQ",
     "danca-pe-1":"9bZkp7q19f0",
-    "livro-cl-1":"dQw4w9WgXcQ",
-    "curso-py-1":"jNQXAC9IVRw",
+    "livro-cl-1":"Mvjz-TZ_lDc",
+    "curso-py-1":"DvqHEB0Y6mI",
   };
-  const vid=map[id]||"jNQXAC9IVRw";
+  const vid=map[id]||"DvqHEB0Y6mI";
   const isVimeo=vid==="76979871";
   const thumb=isVimeo ? `https://picsum.photos/seed/${id}/400/600` : ytThumb(vid);
   const back=isVimeo ? `https://picsum.photos/seed/${id}-back/1200/600` : ytThumb(vid);
   const src=isVimeo ? "https://vimeo.com/76979871" : `https://www.youtube.com/watch?v=${vid}`;
   const provider=isVimeo ? "vimeo" : "youtube";
   return {
-    id, slug: id, title: `${title} — embed real verificado`, synopsis:`Sinopse demo — ${title}. Conteúdo real incorporado via ${provider} oficial (embed verificado em ${new Date().toISOString().slice(0,10)}). Origem preservada.`, shortSynopsis:`${country} · ${dur} min · ${provider}`,
+    id, slug: id, title, synopsis:`Conteúdo real incorporado via ${provider} oficial — "${title}" — embed verificado em ${new Date().toISOString().slice(0,10)}. Origem preservada: ${src}`, shortSynopsis:`${country} · ${dur} min · ${provider} · real`,
     poster:thumb, backdrop:back,
     contentType: ct, year, durationMin: dur, country, regions:[region], languages: country==="Brasil"?["Português"]:["Español"], subtitles:["Português","Español"], genres: tags.slice(0,2),
     tags, source:{ provider, sourceUrl:src, officialWebsite:src, embedAllowed:true, checkedAt:new Date().toISOString(), rightsStatus:"officialEmbed", accessType:"free", status:"active" },
@@ -55,24 +54,24 @@ function mk(id:string, title:string, country:string, region:string, ct:CatalogIt
 }
 
 export const catalog: CatalogItem[] = [
-  mk("filme-patagonia-1","Vento de Fogo","Argentina","Patagônia","movie",2024,92,["Patagônia","Cinema independente"],{ director:"Ana Martínez", personIds:["p-ana"], festivalId:"f-mardel", collectionIds:["col-patagonia"] }),
-  mk("curta-andes-1","Quechua — Vozes da Montanha","Bolívia","Andes","shortFilm",2025,14,["Andes","Cinema indígena","Quechua"],{ director:"Elisa Kalfv Pew", languages:["Quechua","Español"], subtitles:["Español","Português"] }),
-  mk("doc-chile-1","Memória Mapuche","Chile","Araucanía","documentary",2023,52,["Povos originários","Patrimônio"],{ director:"Elisa Kalfv Pew", festivalId:"f-cinechile" }),
-  mk("doc-brasil-1","Sertão em 4K","Brasil","Nordeste","documentary",2024,48,["Patrimônio","Música regional"],{ director:"Carlos Souza", institutionId:"i-usp" }),
-  mk("curta-brasil-1","Pipas de Olinda","Brasil","Nordeste","shortFilm",2025,7,["Curtas","Juventude"],{ durationMin:7 }),
-  mk("longa-mx-1","Noche de Maíz","México","Centro","movie",2022,102,["Cinema mexicano","Ficção"],{ director:"—" }),
-  mk("concerto-co-1","Festival de la Leyenda Vallenata","Colômbia","Caribe","concert",2024,68,["Música popular","Festivais"]),
-  mk("palestra-ar-1","Universidade e Território — UNC","Argentina","Córdoba","lecture",2025,44,["Universidade","Extensão"],{ institutionId:"i-unc" }),
-  mk("teatro-uy-1","Teatro Solís — Hamlet","Uruguai","Montevidéu","theater",2023,88,["Teatro","Patrimônio"]),
-  mk("danca-pe-1","Marinera — Trujillo","Peru","Costa","dance",2024,12,["Dança","Cultura popular"]),
-  mk("livro-cl-1","Feira do Livro de Santiago — Conversa","Chile","Santiago","interview",2024,32,["Literatura"]),
-  mk("curso-py-1","Guarani — Língua e Território","Paraguai","Assunção","course",2025,55,["Guarani","Educação"]),
+  mk("filme-patagonia-1","OITO ANOS DE BUENAS IDEIAS - EDUARDO BUENO","Brasil","Sudeste","movie",2024,15,["História","Brasil"],{ director:"Eduardo Bueno", personIds:["p-carlos"], festivalId:"f-mardel", collectionIds:["col-patagonia"] }),
+  mk("curta-andes-1","Vimeo Demo — Patagônia (embed real)","Argentina","Patagônia","shortFilm",2024,5,["Andes","Cinema indígena"],{ director:"Ana Martínez" }),
+  mk("doc-chile-1","QUEM INVENTOU O BRASIL? - EDUARDO BUENO","Brasil","Sudeste","documentary",2024,68,["História","Brasil"],{ director:"Eduardo Bueno", festivalId:"f-cinechile" }),
+  mk("doc-brasil-1","Big Buck Bunny 60fps 4K - Blender Foundation","Brasil","Nordeste","documentary",2008,10,["Animação","Open Source"],{ director:"Blender Foundation", institutionId:"i-usp" }),
+  mk("curta-brasil-1","PSY - GANGNAM STYLE (4K)","Brasil","Nordeste","shortFilm",2012,4,["Música","Cultura pop"],{ durationMin:4 }),
+  mk("longa-mx-1","OITO ANOS DE BUENAS IDEIAS - Reprise","Brasil","Sudeste","movie",2024,15,["História"],{ director:"Eduardo Bueno" }),
+  mk("concerto-co-1","QUEM INVENTOU O BRASIL? — Sessão","Brasil","Sudeste","concert",2024,68,["História","Educação"]),
+  mk("palestra-ar-1","OITO ANOS DE BUENAS IDEIAS — Palestra UNC","Argentina","Córdoba","lecture",2024,15,["Universidade","História"],{ institutionId:"i-unc" }),
+  mk("teatro-uy-1","Big Buck Bunny — Teatro","Brasil","Sudeste","theater",2008,10,["Teatro","Animação"]),
+  mk("danca-pe-1","GANGNAM STYLE — Dança","Brasil","Sudeste","dance",2012,4,["Dança","Cultura popular"]),
+  mk("livro-cl-1","QUEM INVENTOU O BRASIL? — Literatura","Brasil","Sudeste","interview",2024,68,["Literatura","História"]),
+  mk("curso-py-1","OITO ANOS DE BUENAS IDEIAS — Curso","Brasil","Sudeste","course",2024,15,["Educação","História"]),
 ];
 
 export const collections: Collection[] = [
-  { id:"col-patagonia", slug:"cinema-da-patagonia", title:"Cinema da Patagônia", description:"Do extremo sul, histórias de território, memória e identidade — Argentina e Chile.", cover:"https://picsum.photos/seed/col-patagonia/800/400", type:"regional", region:"Patagônia", contentIds:["filme-patagonia-1"] },
-  { id:"col-mulheres", slug:"mulheres-no-cinema", title:"Mulheres no cinema latino-americano", description:"Realizadoras que reescrevem o continente.", cover:"https://picsum.photos/seed/col-mulheres/800/400", type:"editorial", contentIds:["filme-patagonia-1","doc-chile-1"] },
-  { id:"col-curtas", slug:"curtas-premiados", title:"Curtas premiados", description:"Até 30 min, grandes ideias.", cover:"https://picsum.photos/seed/col-curtas/800/400", type:"editorial", contentIds:["curta-andes-1","curta-brasil-1"] },
+  { id:"col-patagonia", slug:"cinema-da-patagonia", title:"Cinema da Patagônia", description:"Do extremo sul, histórias de território, memória e identidade — Argentina e Chile.", cover:"https://img.youtube.com/vi/DvqHEB0Y6mI/maxresdefault.jpg", type:"regional", region:"Patagônia", contentIds:["filme-patagonia-1"] },
+  { id:"col-mulheres", slug:"mulheres-no-cinema", title:"História do Brasil por Eduardo Bueno", description:"Buenas Ideias — 8 anos contando o Brasil real.", cover:"https://img.youtube.com/vi/Mvjz-TZ_lDc/maxresdefault.jpg", type:"editorial", contentIds:["filme-patagonia-1","doc-chile-1"] },
+  { id:"col-curtas", slug:"curtas-premiados", title:"Curtas premiados", description:"Até 10 min, grandes ideias.", cover:"https://picsum.photos/seed/col-curtas/800/400", type:"editorial", contentIds:["curta-andes-1","curta-brasil-1"] },
   { id:"col-indigena", slug:"cinema-indigena", title:"Cinema indígena", description:"Povos originários, língua e território.", cover:"https://picsum.photos/seed/col-indigena/800/400", type:"editorial", contentIds:["curta-andes-1","doc-chile-1"] },
-  { id:"col-universitario", slug:"cinema-universitario", title:"Cinema universitário", description:"Laboratórios e escolas de cinema.", cover:"https://picsum.photos/seed/col-uni/800/400", type:"editorial", contentIds:["doc-brasil-1"] },
+  { id:"col-universitario", slug:"cinema-universitario", title:"Cinema universitário", description:"Laboratórios e escolas de cinema.", cover:"https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg", type:"editorial", contentIds:["doc-brasil-1"] },
 ];

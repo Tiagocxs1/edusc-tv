@@ -64,12 +64,12 @@ export default function TVHome(){
         </div>
       </section>
 
-      {/* CULTURA */}
+      {/* CULTURA — só conteúdo real do catálogo, nada de picsum */}
       <CarouselDpad title="CULTURA">
         {[
-          { title:"Retablos andinos — patrimônio vivo", excerpt:"Oficinas e mestres do barroco mestiço no Peru.", tag:"Patrimônio", thumb:"https://picsum.photos/seed/cult1/640/400" },
-          { title:"Literatura mapuche contemporânea", excerpt:"Vozes que reescrevem o território.", tag:"Literatura", thumb:"https://picsum.photos/seed/cult2/640/400" },
-          { title:"Choro e samba — rio adentro", excerpt:"Rodas e entrevistas em estúdios cariocas.", tag:"Música", thumb:"https://picsum.photos/seed/cult3/640/400" },
+          { title:"Nos vemos en Encuentro: Capítulo 1 - Canal Encuentro", excerpt:"Canal oficial Encuentro — cultura argentina.", tag:"Argentina", thumb:"https://i.ytimg.com/vi/N9zOAZ-JA5I/hqdefault.jpg" },
+          { title:"Pirámides, materia oscura y Big Bang | DW Documental", excerpt:"DW oficial — 42 min de ciência em espanhol.", tag:"Ciência", thumb:"https://i.ytimg.com/vi/0t8r5r2KcWA/hqdefault.jpg" },
+          { title:"RIO 1940s — Copacabana/Pão de Açúcar (Archive MP4)", excerpt:"Periscope/Archive.org — fora do YouTube.", tag:"Arquivo", thumb:"https://archive.org/download/TSw7Dh424g3a65n28DixCkOk5H84GE/__ia_thumb.jpg" },
         ].map((c,i)=> <div key={i} className="w-[340px] shrink-0 snap-start"><CultureCard {...c} /></div>)}
       </CarouselDpad>
 
@@ -87,10 +87,10 @@ export default function TVHome(){
         <div className="w-[300px] shrink-0 snap-start rounded-xl border border-dashed border-[#333] p-6 grid place-items-center text-sm text-[#8a8a8a]">+ Palestras, ciência e pesquisa</div>
       </CarouselDpad>
 
-      {/* MÚSICA */}
-      <CarouselDpad title="MÚSICA">
-        {mockContents.filter(c=>c.category==="Música").map(c=> <div key={c.id} className="w-[300px] shrink-0 snap-start"><ContentCard content={c} /></div>)}
-        <div className="w-[300px] shrink-0 snap-start rounded-xl border border-[#222] bg-[#141414] p-4"><p className="text-sm font-semibold text-white">Shows e festivais</p><p className="text-xs text-[#8a8a8a] mt-1">Concertos regionais em curadoria semanal.</p></div>
+      {/* ARQUIVO — fora do YouTube, alta qualidade */}
+      <CarouselDpad title="ARQUIVO — FORA DO YOUTUBE">
+        {mockContents.filter(c=>c.provider==="Archive.org").map(c=> <div key={c.id} className="w-[300px] shrink-0 snap-start"><ContentCard content={c} /></div>)}
+        <div className="w-[300px] shrink-0 snap-start rounded-xl border border-[#222] bg-[#141414] p-4"><p className="text-sm font-semibold text-white">MP4 direto Archive.org</p><p className="text-xs text-[#8a8a8a] mt-1">Preservação Periscope — sem depender só do YouTube.</p></div>
       </CarouselDpad>
 
       {/* POR PAÍS */}

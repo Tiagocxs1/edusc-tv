@@ -40,10 +40,11 @@ export const mockContents: Content[] = [
   { id: "sintel-2010", title: "Sintel - Open Movie by Blender Foundation (CC BY)", description: "Blender oficial — 15 min, 1080p.", thumbnail: "https://i.ytimg.com/vi/eRsGyueVLvQ/hqdefault.jpg", category: "Cinema", duration: "14:48", source: "youtube", url: "https://www.youtube.com/watch?v=eRsGyueVLvQ", provider: "YouTube", countryId: "br" },
 ];
 
+// Cinema real apenas — filmes (longa/curta open, domínio público). Docs/cursos ficam em Documentários/Educação, nunca aqui.
 export const mockMovies: Movie[] = [
-  { id: "buenas-8anos", title: "OITO ANOS DE BUENAS IDEIAS (2024)", description: "Buenas Ideias — embed oficial.", thumbnail: "https://i.ytimg.com/vi/DvqHEB0Y6mI/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=DvqHEB0Y6mI", provider: "YouTube", year: "2024", director: "Eduardo Bueno", countryId: "br" },
-  { id: "dw-bigbang", title: "Big Bang DW (2024)", description: "DW Documental oficial.", thumbnail: "https://i.ytimg.com/vi/0t8r5r2KcWA/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=0t8r5r2KcWA", provider: "YouTube", year: "2024", director: "DW", countryId: "mx" },
-  { id: "blender-bunny", title: "Big Buck Bunny 4K (2008)", description: "Blender Foundation open-source.", thumbnail: "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg", category: "Curtas", source: "youtube", url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ", provider: "YouTube", year: "2008", director: "Blender", countryId: "br" },
+  { id: "auto-gris-1919", title: "El automóvil gris (1919) HD", description: "Enrique Rosas — clássico mudo mexicano, domínio público. Cópia HD Topaz Cine de Oro.", thumbnail: "https://i.ytimg.com/vi/FmfouqMv_EA/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=FmfouqMv_EA", provider: "YouTube", year: "1919", director: "Enrique Rosas", countryId: "mx" },
+  { id: "sintel-2010", title: "Sintel - Open Movie by Blender Foundation", description: "Blender 2010, CC BY — 15 min, 1080p.", thumbnail: "https://i.ytimg.com/vi/eRsGyueVLvQ/hqdefault.jpg", category: "Curtas", source: "youtube", url: "https://www.youtube.com/watch?v=eRsGyueVLvQ", provider: "YouTube", year: "2010", director: "Blender Foundation", countryId: "br" },
+  { id: "blender-bunny", title: "Big Buck Bunny 60fps 4K (2008)", description: "Blender Foundation open-source.", thumbnail: "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg", category: "Curtas", source: "youtube", url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ", provider: "YouTube", year: "2008", director: "Blender Foundation", countryId: "br" },
 ];
 
 export const mockCategories: Category[] = [

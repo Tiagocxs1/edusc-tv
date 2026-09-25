@@ -10,7 +10,7 @@ export default function Page(){
     <div className="py-6 space-y-8">
       <div className="relative overflow-hidden rounded-2xl border border-[#222] bg-[#0f0f0f]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="https://picsum.photos/seed/cinema-hero/1200/500" alt="" className="h-[280px] w-full object-cover opacity-60"/>
+        <img src="https://i.ytimg.com/vi/FmfouqMv_EA/maxresdefault.jpg" alt="El automóvil gris 1919" className="h-[280px] w-full object-cover opacity-60"/>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"/>
         <div className="absolute bottom-0 p-6 md:p-8">
           <p className="text-xs tracking-[0.2em] text-white/70">CINEMA LATINO-AMERICANO</p>
@@ -21,10 +21,10 @@ export default function Page(){
         </div>
       </div>
 
-      <section className="space-y-3"><div className="flex items-center justify-between"><h2 className="font-bold text-white">Destaques</h2><Link href="/tv/colecoes/cinema-da-patagonia" className="text-xs text-[#8a8a8a] hover:text-white">Coleção Patagônia →</Link></div><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{catalog.slice(0,4).map(c=> <VerticalCard key={c.id} item={c} />)}</div></section>
-      <section className="space-y-3"><h2 className="font-bold text-white">Curtas — até 30 min</h2><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{curtas.map(c=> <VerticalCard key={c.id} item={c} />)}</div></section>
-      <section className="space-y-3"><h2 className="font-bold text-white">Longas</h2><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{longas.map(c=> <VerticalCard key={c.id} item={c} />)}</div></section>
-      <section className="space-y-3"><h2 className="font-bold text-white">Documentários</h2><div className="grid md:grid-cols-2 gap-4">{docs.map(c=> <Link key={c.id} href={`/tv/filmes/${c.slug}`} className="rounded-xl border border-[#222] bg-[#141414] p-3 flex gap-3 hover:border-[#333]"><div className="h-20 w-32 rounded-lg bg-[#0f0f0f] overflow-hidden shrink-0"><img src={c.backdrop} alt="" className="h-full w-full object-cover"/></div><div><p className="text-sm font-semibold text-white">{c.title}</p><p className="text-xs text-[#8a8a8a]">{c.country} · {c.year}</p></div></Link>)}</div></section>
+      <section className="space-y-3"><div className="flex items-center justify-between"><h2 className="font-bold text-white">Filmes em destaque — só cinema, sem docs/cursos</h2><Link href="/tv/colecoes/clasicos-dominio-publico" className="text-xs text-[#8a8a8a] hover:text-white">Domínio público →</Link></div><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{[...longas, ...curtas].slice(0,4).map(c=> <VerticalCard key={c.id} item={c} />)}</div></section>
+      <section className="space-y-3"><h2 className="font-bold text-white">Curtas — até 30 min (só shortFilm)</h2><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{curtas.map(c=> <VerticalCard key={c.id} item={c} />)}</div></section>
+      <section className="space-y-3"><h2 className="font-bold text-white">Longas (só movie)</h2><div className="grid grid-cols-2 md:grid-cols-4 gap-4">{longas.map(c=> <VerticalCard key={c.id} item={c} />)}</div></section>
+      <section className="space-y-3"><div className="flex items-center justify-between"><h2 className="font-bold text-white">Documentários ficam aqui — não no cinema</h2><Link href="/tv/documentarios" className="text-xs text-[#8a8a8a] hover:text-white">Ver docs →</Link></div><div className="grid md:grid-cols-2 gap-4">{docs.map(c=> <Link key={c.id} href={`/tv/filmes/${c.slug}`} className="rounded-xl border border-[#222] bg-[#141414] p-3 flex gap-3 hover:border-[#333]"><div className="h-20 w-32 rounded-lg bg-[#0f0f0f] overflow-hidden shrink-0"><img src={c.backdrop} alt="" className="h-full w-full object-cover"/></div><div><p className="text-sm font-semibold text-white">{c.title}</p><p className="text-xs text-[#8a8a8a]">{c.country} · {c.year}</p></div></Link>)}</div></section>
       <section className="space-y-3"><h2 className="font-bold text-white">Coleções editoriais</h2><div className="grid md:grid-cols-3 gap-4">{collections.map(col=> <CollectionCard key={col.id} col={col} />)}</div></section>
       <section className="rounded-xl border border-[#222] bg-[#141414] p-4">
         <h3 className="font-bold text-white">Cinema independente & universitário</h3>

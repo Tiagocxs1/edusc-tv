@@ -23,7 +23,15 @@ export function extractYouTubeId(url:string):string|null{
     if(u.hostname.includes("youtu.be")) return u.pathname.slice(1).split("/")[0] || null;
     if(u.searchParams.get("v")) return u.searchParams.get("v");
     const m=u.pathname.match(/\/embed\/([^/?]+)/);
-    if(m) return m[1];
+    if(m && m[1]!=="videoseries") return m[1];
+    return null;
+  }catch{ return null; }
+}
+export function extractPlaylistId(url:string):string|null{
+  try{
+    const u=new URL(url);
+    const l=u.searchParams.get("list");
+    if(l) return l;
     return null;
   }catch{ return null; }
 }
@@ -47,8 +55,12 @@ export function detectProvider(url:string): ProviderKind{
 
 export function toEmbedUrl(url:string, kind:ProviderKind): string | undefined{
   if(kind==="youtube"){
+    const list=extractPlaylistId(url);
+    // playlist primeiro: embed videoseries oficial (coleções Argflix/ACAU)
+    if(list && !extractYouTubeId(url)) return `https://www.youtube-nocookie.com/embed/videoseries?list=${list}&rel=0&modestbranding=1&playsinline=1`;
     const id=extractYouTubeId(url);
     if(id) return `https://www.youtube-nocookie.com/embed/${id}?enablejsapi=1&rel=0&modestbranding=1&playsinline=1`;
+    if(list) return `https://www.youtube-nocookie.com/embed/videoseries?list=${list}&rel=0&modestbranding=1&playsinline=1`;
   }
   if(kind==="vimeo"){
     const id=extractVimeoId(url);

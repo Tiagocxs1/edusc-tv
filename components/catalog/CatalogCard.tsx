@@ -19,8 +19,8 @@ export function VerticalCard({ item }: { item:CatalogItem }){
         {external && <span className="absolute top-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-bold text-white border border-white/20">↗ FONTE</span>}
       </div>
       <div className="p-3">
-        <p className="line-clamp-2 text-sm font-semibold leading-snug text-white">{item.title}</p>
-        <p className="mt-1 text-xs text-[#8a8a8a]">{item.country} · {item.year || "—"} · {item.durationMin ? `${item.durationMin} min` : "—"}</p>
+        {!item.poster && <p className="text-xs text-[#8a8a8a]">{item.country} · {item.year || "—"} · {item.durationMin ? `${item.durationMin} min` : "—"}</p>}
+        {item.poster && <><p className="line-clamp-2 text-sm font-semibold leading-snug text-white">{item.title}</p><p className="mt-1 text-xs text-[#8a8a8a]">{item.country} · {item.year || "—"} · {item.durationMin ? `${item.durationMin} min` : "—"}</p></>}
       </div>
     </>
   );

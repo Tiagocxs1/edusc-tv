@@ -3,6 +3,8 @@ import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { mockContents, mockMovies } from "@/lib/mock-data";
 import { catalog as catalogData, persons, companies } from "@/lib/catalog/mockCatalog";
+import { playlistFilms } from "@/lib/catalog/playlistFilms";
+const allCatalog = [...catalogData, ...playlistFilms];
 import { UniversalPlayer } from "@/lib/player/UniversalPlayer";
 import { contentToSource } from "@/lib/player/toSource";
 import { usePlayer } from "@/lib/player/PlayerContext";
@@ -10,7 +12,7 @@ import { VerticalCard } from "@/components/catalog/CatalogCard";
 
 export default function Page({ params }: { params: Promise<{ slug:string }> }){
   const { slug } = use(params);
-  const catItem = catalogData.find(c=>c.slug===slug);
+  const catItem = allCatalog.find(c=>c.slug===slug);
   const fallback = [...mockContents, ...mockMovies].find(c=>c.id===slug || c.title.toLowerCase().replace(/\s+/g,"-")===slug) ?? mockContents[0];
   const isCatalog = !!catItem;
   const title = catItem?.title ?? fallback.title;
@@ -46,9 +48,9 @@ export default function Page({ params }: { params: Promise<{ slug:string }> }){
   };
 
   // relacionados: mesmo país / categoria / diretor / coleção
-  const related = catalogData.filter(c=> c.slug!==slug && (c.country===country || c.genres.includes(category) || (catItem && c.collectionIds.some(id=> catItem.collectionIds.includes(id))) || (catItem?.director && c.director===catItem.director))).slice(0,4);
-  const moreCountry = catalogData.filter(c=> c.country===country && c.slug!==slug).slice(0,4);
-  const moreDirector = catItem?.director ? catalogData.filter(c=> c.director===catItem.director && c.slug!==slug).slice(0,4) : [];
+  const related = allCatalog.filter(c=> c.slug!==slug && (c.country===country || c.genres.includes(category) || (catItem && c.collectionIds.some(id=> catItem.collectionIds.includes(id))) || (catItem?.director && c.director===catItem.director))).slice(0,4);
+  const moreCountry = allCatalog.filter(c=> c.country===country && c.slug!==slug).slice(0,4);
+  const moreDirector = catItem?.director ? allCatalog.filter(c=> c.director===catItem.director && c.slug!==slug).slice(0,4) : [];
 
   const demos = [
     { label:"YouTube VOD", s: contentToSource({ id:"yt-demo", title:"YouTube — Demo VOD", thumbnail: poster, url:"https://www.youtube.com/watch?v=jNQXAC9IVRw" }) },

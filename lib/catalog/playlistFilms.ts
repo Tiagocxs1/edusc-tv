@@ -62,7 +62,7 @@ function toItem([id,title,durMin]:F): CatalogItem{
     id:slug, slug, title,
     synopsis:`Filme argentino completo via playlist "Cine Argentino. Películas Argentinas Completas" (YouTube). Embed oficial verificado via oEmbed. Upload de terceiro — titularidade em revisão; se o titular solicitar remoção, retiramos. Origem preservada.`,
     shortSynopsis:`Argentina · ${durMin} min · playlist`,
-    poster:"", backdrop:`https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+    poster:`https://i.ytimg.com/vi/${id}/hqdefault.jpg`, backdrop:`https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
     contentType:"movie", year:0, durationMin:durMin, country:"Argentina", regions:["Buenos Aires"],
     languages:["Español"], subtitles:[], genres:["Cinema argentino"],
     tags:["Argentina","Cine Argentino","Playlist"],

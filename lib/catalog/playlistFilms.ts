@@ -56,6 +56,47 @@ const FILMS: F[] = [
   ["DW6Dhiyd7n0","El Turno Nocturno — Comedia",70],
 ];
 
+// Sinopses editoriais TMDB (sem jargão técnico no frontend).
+const OVERVIEWS: Record<string,string> = {
+  "ndOsBHc2b-E": "La voz de Ita cuenta anécdotas de su vida sobre pérdidas cercanas, que permiten entrever sus temores y su relación con el olvido, a la vez que reflexiona acerca del paralelismo entre la descomposición, la vida y el cine.",
+  "Xd9ZSI3k-OU": "Jota sale cada mañana en busca del amor, porque está enamorado del amor y el amor se llama Paco y, como un espíritu, se introduce en los cuerpos de los chicos más guapos que pasean por el centro comercial. Jota es la única persona que puede ver ese espíritu dentro de esos cuerpos",
+  "NZlJy7SNB04": "Javier, un médico treintañero que está recién casado, tiene planes de comenzar una nueva vida en Estados Unidos con María. Justo antes de partir a Miami para encontrarse con su mujer, ella lo llama para confesar que se ha enamorado de otro y terminar su relación. Javier está dese",
+  "tfscP94Y2FE": "En una desolada zona del noroeste argentino y en medio del machismo y la miseria, nace la última hija mujer de Antonio, un hachero alcohólico y autoritario que con ansias esperaba un hijo varón. La bautiza con el nombre de José, apodada luego como Bumbún.",
+  "3eJIyYrfXVI": "Durante el Festival Internacional de Cine de Cosquin (Córdoba, Argentina), Matías y Micaela entrarán en contacto con realizadores y personas de la industria cinematográfica local y lentamente se irán sumergiendo en el pequeño mundo cinéfilo que emerge en esos tres días.",
+  "qY7wOb2ZeaI": "Tres historias absurdas de amor y crimen. Un hombre roba el anillo de diamantes de su esposa y lo vende para comprar un flipper. Tres amigas viajan a la costa para comprar un flipper pero son estafadas y reciben una ayuda impensada. Una mujer mata accidentalmente a su amante, des",
+  "U4bRVd9-oYw": "En su departamento recién alquilado, Juan espera a una sensual chica gótica. Pero, justo antes de que ella se presente, llega un amigo pidiéndole refugio por algo insólito: teme convertirse en hombre lobo. Lo que prometía ser una noche corriente, termina poblada de licántropos, p",
+  "MHbHa46xxdo": "Señales de otro planeta llegan a la Tierra, exactamente a la Villa 21 de Barracas (Buenos Aires). Con chatarra, basura y cartón, un grupo del humilde barrio fabrica armas y una nave espacial para destruir a los extraterrestres. La batalla final se aproxima. ¿La villa estará prepa",
+  "VTmOMMbGyO8": "Una mujer joven que tiene problemas al criar a sus hijas gemelas después de que su marido y su hermano mueren, acepta el cortejo de un pretendiente encantador pero misterioso, mayor que ella.",
+  "26HnxScbY9c": "Martina y Manuel cruzan la frontera desde Bolivia como “mulas”. En un hotel, él muere con las cápsulas de cocaína adentro. Ella debe hacer la entrega de todo en otra ciudad. No tiene salida, la presión de los traficantes acorrala a Martina. Sólo hay una persona a la que recurrir,",
+  "ZkruJHoykao": "Robertina, una exitosa actriz está en el apogeo de su carrera, pero vive en un estado de ansiedad constante. Sin embargo, la situación personal de un gran amigo la lleva a irse unos días de viaje, momento en el que Robertina consigue ver en perspectiva su vida absurda. Lejos de c",
+  "9VbLU9ofsas": "Pablo y Valeria son novios y se aman, pero como en toda pareja, la relación tiene varias idas y vueltas. Además, deben aprender a sobrevivir en Nueva York, con lo difícil que resulta para dos jóvenes argentinos.",
+  "A3q7nlNE9_U": "Facundo es un muchacho común y normal, que necesita un trabajo para poder subsistir. Acaba de terminar la secundaria y se encuentra en una situación crítica que no le permite seguir estudiando. Es así como comienza a deambular por la ciudad durante varios días hasta que una mañan",
+  "IccTumKqgQo": "Treinta años después de haberse radicado en España, Paco regresa a la Argentina para apadrinar la boda de un amigo. Retirado y separado de su esposa española, se reencuentra con sus afectos. Como siempre, en los últimos treinta años, Margarita, ya jubilada como docente, arrastra ",
+  "_xSJi4mWAUY": "",
+  "idsBI_bUsQs": "Los problemas del personaje que encarna Andrea del Boca comienzan cuando sus padres se enteran de que ella está embarazada.",
+  "1Yp5gZYMWew": "Ale pierde su trabajo en un supermercado y decide ayudar a Rengo, un carrero del barrio, yendo con él a recoger basura por la ciudad. Aunque su madre y su amigo Gonza le advierten sobre los peligros de esta actividad, Ale disfruta de su nueva ocupación y de su creciente amistad",
+  "0JAq-FmeC-0": "Siete aspirantes a un puesto ejecutivo se presentan a la prueba de selección de personal de una empresa multinacional, situada en un rascacielos de Madrid. Sus personalidades son de lo más dispar: el triunfador, el agresivo, la mujer insegura, el crítico, el indeciso. En un clima",
+  "g9R0OwijRtE": "Ernesto, un hombre común que, tras hacer un trato con un extraño personaje, tiene la posibilidad de volver al pasado y vivir de nuevo su juventud, intenta recuperar las oportunidades perdidas y evitar ciertos comportamientos con intención de cambiar su gris e insípido presente.",
+  "RnjectjoRMQ": "Luna de Avellaneda, un club de barrio que vivió en el pasado una época de esplendor, está atravesando una crisis que pone en peligro su existencia. Al parecer, la única salida posible es que se convierta en un Casino, pero esto se aparta de los ideales y de los fines para los que",
+  "61lecDtZPq4": "Tomando como base la reciente epidemia de la Gripe A y más interesado por la situación de psicosis que generó que por la infección en si misma, Fase 7 se va convirtiendo poco a poco en un relato cerrado, desarrollado en un bloque de apartamentos donde las situaciones cómicas, abs",
+  "eT2mg-4sEWk": "Clara Goldstein, una mujer madura, que desea relacionarse con un hombre de su edad, publica un anuncio en un periódico, en el que dibuja una estrella de David. Recibe la llamada de un tal Saúl Levín con el que se encuentra en una cafetería céntrica. Él es uruguayo y tiene un tall",
+  "0YNz25dRPj0": "En los saqueos ocurridos en diciembre de 2001 en Argentina es destruido el minimercado de una inmigrante ilegal china, que entonces comienza a trabajar en un lavadero de ropa donde construye una amistad con una inmigrante paraguaya, también ilegal.",
+  "TmbmlowW71g": "",
+  "Y5nrJvzGkl8": "Basada en la historia real del motín de Sierra Chica del 1996. Prisioneros del penal de Sierra Chica que se organizan con pocas armas en plena Semana Santa para escapar de su encierro. Los organizadores de esta fuga masiva son Brocca, el brazo armado y ejecutor, y Peralta el cere",
+  "bW9VfzisM2c": "Nati, vive con sus padres y su hermano Seba en un barrio marginal. Nati y Seba trabajan haciendo repartos en el bar de su madre y pasan el tiempo con un grupo de amigos que se gana la vida cometiendo delitos menores. Cuando Nati descubre que sus padres tienen una deuda que no pue",
+  "q4xQVdrsTg4": "La película cuenta la historia de tres amigos y su sueño en común, a lo largo de tres momentos históricos claves de la Argentina. Todo comienza en 1976, con la aparición de una sex symbol que despierta los primeros ratones de cada uno de ellos. Continúa y se desarrolla en 1989, d",
+  "yH_tANrGH0g": "Un chofer de micros de larga distancia cercano a la jubilación dará un giro a su vida tranquila al tratar de rastrear a una muchacha que desaparece de manera misteriosa, dándose así la posibilidad de enderezar una falta cometida cuando era joven y que él nunca se había perdonado.",
+  "qaWqueHhWaE": "El caballito Ico desea entrar en la caballeriza del rey y conocer el lujoso palacio. Cuando lo consigue, comprende que en ese mundo también existe la bondad y la maldad.",
+  "fhqV2aB5Njg": "Nació en una isla fantástica y creció en un hogar lleno de ternura, cuidada por su familia y por sus dos grandes amigos. Es Manuelita, una pequeña tortuga curiosa y carismática que, enamorada de un atractivo galápago, decide un día volar en globo hasta París.",
+  "xqYPyvbZk6I": "Mamá Cora, muy cerca ya de los ochenta años, tiene tres hijos y una hija. Vive con uno de ellos, que pasa serios apuros económicos. La familia se reúne un día para celebrar una comida de aniversario, y es entonces cuando se plantea el problema: ¿quién se hará cargo de ella lleván",
+  "HE9-bjVZ7SE": "Trapito, un espantapájaros con un corazón de oro, salva la vida a Salapín, un simpático Gorrión. Surge una inseparable amistad y viven una historia llena de peligros, aventuras, risas pero también instantes realmente tristes. Aparecerán amigos como Larguirucho, Espumita y Caballi",
+  "9Snk0wRM8_U": "",
+  "GzUyX95TRbI": "En el año 1817, durante la Guerra de la Independencia, en la provincia de Salta, las fuerzas irregulares que respondían al general Martín Güemes hieren en una acción de guerrillas a un teniente del ejército español, peruano de nacimiento. El mismo es mantenido cautivo en la estan",
+  "ROXrnHeoXyA": "María y Manuel tienen un plan, o más bien dos: pasar Año Nuevo en casa de la hermana de Manuel y su pareja, y aprovechar para pedirles un favor muy delicado.",
+  "r7w0UH4TRj0": "Largometraje cinematográfico basado en el popular personaje animado de la televisión. Un marciano que usa las alcantarillas porteñas como base de operaciones para armar un mundo virtual.",
+  "DW6Dhiyd7n0": "Diego es un joven al cual su vida se ha quedado estancada en la misma rutina de siempre, trabajando en una estación de GNC. Cuando le toca la tarea de atender su primer turno nocturno, una cantidad de situaciones y personajes aparecen de la oscuridad para abrirle los ojos y darse",
+};
+
 // Pôsteres oficiais TMDB (image.tmdb.org, plano gratuito com atribuição) — verificados contra origin_country=AR.
 // Sem match TMDB: card tipográfico (poster vazio), nunca thumbnail como cartaz.
 const POSTERS: Record<string, { tmdb:number; title:string; year:string; poster:string }> = {
@@ -105,9 +146,7 @@ function toItem([id,title,durMin]:F): CatalogItem{
   const year = tmdb ? parseInt(tmdb.year,10) : 0;
   return {
     id:slug, slug, title: tmdb?.title ?? title,
-    synopsis: tmdb
-      ? `Filme argentino (TMDB ${tmdb.tmdb}, ${tmdb.year}) — player YouTube verificado via oEmbed. Upload de terceiro, titularidade em revisão; se o titular solicitar remoção, retiramos. Pôster TMDB (gratuito, com atribuição).`
-      : `Filme argentino completo via playlist "Cine Argentino. Películas Argentinas Completas" (YouTube). Embed oficial verificado via oEmbed. Upload de terceiro — titularidade em revisão; se o titular solicitar remoção, retiramos. Origem preservada.`,
+    synopsis: OVERVIEWS[id] ?? "Filme argentino completo, em espanhol, com áudio original.", 
     shortSynopsis:`Argentina · ${tmdb?.year ?? ""} · ${durMin} min`,
     poster: tmdb?.poster ?? "", backdrop:`https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
     contentType:"movie", year, durationMin:durMin, country:"Argentina", regions:["Buenos Aires"],

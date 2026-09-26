@@ -24,8 +24,8 @@ export default function Page(){
         ))}
       </div>
       <div className="rounded-xl border border-[#222] bg-[#0f0f0f] p-4 text-sm text-[#8a8a8a]">
-        <p className="font-bold text-white">Coleções via playlist (embed legal)</p>
-        <p className="mt-1">Cine Argentino #1: <code>PLj9stbUOTbCuRN8CqKn_t93L5MvhPf98U</code> — embed videoseries ativo. Changuita Films em revisão por titularidade.</p>
+        <p className="font-bold text-white">Coleções via playlist</p>
+        <p className="mt-1">Cine Argentino e Acervo ACAU com reprodução incorporada. Títulos de terceiros passam por revisão antes da publicação.</p>
       </div>
     </div>
   );

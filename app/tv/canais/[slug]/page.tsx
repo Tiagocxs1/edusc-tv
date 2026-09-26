@@ -13,7 +13,8 @@ export default function Page({ params }: { params: Promise<{ slug:string }> }){
   const base = epgChannels.find(c=>c.slug===slug) ?? epgChannels[0];
   const [idx,setIdx]=useState(epgChannels.findIndex(c=>c.slug===base.slug));
   const cur = epgChannels[(idx+epgChannels.length)%epgChannels.length];
-  const liveSource = contentToSource({ id: cur.id, title: `${cur.name} — Ao vivo`, thumbnail: cur.cover || `https://picsum.photos/seed/live-${cur.id}/800/450`, url: cur.source.url }, { isLive: cur.source.isLive });
+  const liveId = (cur.source.url.match(/v=([^&]+)/) || [])[1] || "";
+  const liveSource = contentToSource({ id: cur.id, title: `${cur.name} — Ao vivo`, thumbnail: liveId ? `https://i.ytimg.com/vi/${liveId}/hqdefault.jpg` : "", url: cur.source.url }, { isLive: cur.source.isLive });
   const p=usePlayer();
   const { fav, toggle, isFav } = useFavorites();
   const { push } = useRecentChannels();
@@ -117,7 +118,7 @@ export default function Page({ params }: { params: Promise<{ slug:string }> }){
       <div className="rounded-xl border border-[#222] bg-[#141414] p-4">
         <h3 className="font-semibold text-white">Sobre o canal</h3>
         <p className="mt-1 text-sm text-[#8a8a8a]">{cur.description}</p>
-        <p className="mt-2 text-xs text-[#6b6b6b]">Qualidade: {cur.source.quality || "AUTO"} · 24h: {cur.is24h? "sim":"não"} · Fonte: {cur.source.provider} · {cur.source.url} {cur.source.isLive && "· live"}</p>
+        <p className="mt-2 text-xs text-[#6b6b6b]">Transmissão ao vivo · {cur.is24h ? "24 horas" : "grade diária"} · {cur.timezone}</p>
       </div>
 
       <div className="rounded-xl border border-[#222] bg-[#0f0f0f] p-4">

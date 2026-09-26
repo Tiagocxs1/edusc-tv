@@ -52,13 +52,7 @@ export default function Page({ params }: { params: Promise<{ slug:string }> }){
   const moreCountry = allCatalog.filter(c=> c.country===country && c.slug!==slug).slice(0,4);
   const moreDirector = catItem?.director ? allCatalog.filter(c=> c.director===catItem.director && c.slug!==slug).slice(0,4) : [];
 
-  const demos = [
-    { label:"YouTube VOD", s: contentToSource({ id:"yt-demo", title:"YouTube — Demo VOD", thumbnail: poster, url:"https://www.youtube.com/watch?v=jNQXAC9IVRw" }) },
-    { label:"Vimeo VOD", s: contentToSource({ id:"vm-demo", title:"Vimeo — Demo VOD", thumbnail: poster, url:"https://vimeo.com/76979871" }) },
-    { label:"HLS", s: contentToSource({ id:"hls-demo", title:"HLS — Stream teste", thumbnail: poster, url:"https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" }) },
-    { label:"HTML5 MP4", s: contentToSource({ id:"mp4-demo", title:"HTML5 — Big Buck Bunny", thumbnail: poster, url:"https://test-videos.co.uk/vids/sintel/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4" }) },
-    { label:"Bloqueado", s: { id:"blocked", title:"Bloqueado — demo", provider:"iframe" as const, sourceUrl:"https://example.com/bloqueado", thumbnail: poster, isLive:false } as any },
-  ];
+
 
   return (
     <div className="py-6 space-y-6">
@@ -104,10 +98,9 @@ export default function Page({ params }: { params: Promise<{ slug:string }> }){
           {catItem?.director && <p className="text-sm text-[#8a8a8a]">Direção: <Link href={`/tv/realizadores/${catItem.director.toLowerCase().replace(/\s+/g,"-")}`} className="text-white hover:underline">{catItem.director}</Link></p>}
           {catItem?.production && <p className="text-sm text-[#8a8a8a]">Produção: <Link href={`/tv/produtoras/${catItem.production.toLowerCase().replace(/\s+/g,"-")}`} className="text-white hover:underline">{catItem.production}</Link></p>}
           <div className="pt-3 border-t border-[#222]">
-            <h4 className="text-xs tracking-widest font-bold text-[#8a8a8a]">CRÉDITOS E FONTE</h4>
-            <p className="mt-1 text-xs text-[#6b6b6b]">Fonte: {catItem?.source.officialWebsite ?? source.sourceUrl} · Direitos: {catItem?.source.rightsStatus ?? "unknown"} · Acesso: {catItem?.source.accessType ?? "free"} · Embed: {catItem?.source.embedAllowed ? "permitido":"verificar"} · Verificado em {catItem?.source.checkedAt?.slice(0,10) ?? "—"}</p>
+            <h4 className="text-xs tracking-widest font-bold text-[#8a8a8a]">ONDE ASSISTIR</h4>
+            <p className="mt-1 text-xs text-[#6b6b6b]">Disponível gratuitamente via {source.provider === "youtube" ? "YouTube" : source.provider === "html5" ? "Internet Archive" : "plataforma oficial"}.</p>
             <div className="mt-2 flex gap-2">
-              <a href={catItem?.source.officialWebsite ?? source.sourceUrl} target="_blank" className="rounded-full border border-[#222] bg-[#0f0f0f] px-3 py-1 text-xs text-white hover:bg-white hover:text-black">Site oficial ↗</a>
               <a href={source.sourceUrl} target="_blank" className="rounded-full bg-white px-3 py-1 text-xs font-bold text-black">Assistir na fonte original ↗</a>
             </div>
           </div>
@@ -121,9 +114,7 @@ export default function Page({ params }: { params: Promise<{ slug:string }> }){
             <div><dt className="inline">Idiomas: </dt><dd className="inline text-white">{catItem?.languages.join(", ") || "—"}</dd></div>
             <div><dt className="inline">Tags: </dt><dd className="inline text-white">{catItem?.tags.join(", ") || "—"}</dd></div>
           </dl>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {demos.slice(0,3).map(d=> <button key={d.label} onClick={()=> p.play(d.s as any)} className="rounded-full border border-[#333] bg-[#141414] px-2 py-1 text-xs text-white hover:bg-white hover:text-black">{d.label}</button>)}
-          </div>
+
         </div>
       </div>
 

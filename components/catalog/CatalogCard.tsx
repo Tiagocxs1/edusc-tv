@@ -9,18 +9,18 @@ export function VerticalCard({ item }: { item:CatalogItem }){
           // eslint-disable-next-line @next/next/no-img-element
           <img src={item.poster} alt={item.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.03] transition"/>
         ) : (
-          <div className="flex h-full flex-col justify-end p-3">
+          <div className="flex h-full flex-col items-center justify-center p-3 text-center">
             <p className="text-[10px] tracking-[0.2em] text-[#e50914] font-bold">{item.genres[0]?.toUpperCase() || item.contentType.toUpperCase()}</p>
-            <p className="mt-1 line-clamp-4 text-base font-black leading-tight text-white">{item.title}</p>
-            <p className="mt-1 text-xs text-[#8a8a8a]">{item.country} · {item.year || "—"}</p>
+            <p className="mt-2 text-3xl text-[#333] font-black">▶</p>
+            <p className="mt-1 text-[11px] text-[#6b6b6b]">{item.durationMin ? `${item.durationMin} min` : item.country}</p>
           </div>
         )}
         <span className="absolute bottom-2 left-2 rounded bg-black/70 px-1.5 py-0.5 text-[11px] text-white border border-white/10">{item.contentType}</span>
         {external && <span className="absolute top-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-bold text-white border border-white/20">↗ FONTE</span>}
       </div>
       <div className="p-3">
-        {!item.poster && <p className="text-xs text-[#8a8a8a]">{item.country} · {item.year || "—"} · {item.durationMin ? `${item.durationMin} min` : "—"}</p>}
-        {item.poster && <><p className="line-clamp-2 text-sm font-semibold leading-snug text-white">{item.title}</p><p className="mt-1 text-xs text-[#8a8a8a]">{item.country} · {item.year || "—"} · {item.durationMin ? `${item.durationMin} min` : "—"}</p></>}
+        <p className="line-clamp-2 text-sm font-semibold leading-snug text-white">{item.title}</p>
+        <p className="mt-1 text-xs text-[#8a8a8a]">{item.country} · {item.year || "—"} · {item.durationMin ? `${item.durationMin} min` : "—"}</p>
       </div>
     </>
   );

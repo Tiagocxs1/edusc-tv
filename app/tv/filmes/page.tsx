@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { catalog } from "@/lib/catalog/mockCatalog";
 import { fullExternalCatalog } from "@/lib/catalog/fullCatalog";
+import { playlistFilms } from "@/lib/catalog/playlistFilms";
 import { VerticalCard } from "@/components/catalog/CatalogCard";
 import { FilterChip } from "@/components/catalog/Filters";
 
@@ -9,11 +10,12 @@ export default function Page(){
   const [tag,setTag]=useState("Todos");
   const playable = catalog.filter(c=> c.contentType==="movie" && c.source.embedAllowed);
   const external = fullExternalCatalog.filter(c=> c.contentType==="movie");
-  const all=[...playable, ...external];
-  const tags=["Todos","Com player","Argflix","Libreflix","Argentina","Brasil","México"];
+  const all=[...playable, ...playlistFilms, ...external];
+  const tags=["Todos","Com player","Cine Argentino","Argflix","Libreflix","Argentina","Brasil","México"];
   const filtered=all.filter(c=>{
     if(tag==="Todos") return true;
     if(tag==="Com player") return c.source.embedAllowed;
+    if(tag==="Cine Argentino") return c.tags.includes("Cine Argentino") || c.tags.includes("Playlist");
     if(tag==="Argflix") return c.tags.includes("Argflix");
     if(tag==="Libreflix") return c.tags.includes("Libreflix");
     return c.country===tag;

@@ -40,10 +40,9 @@ export const mockContents: Content[] = [
   { id: "sintel-2010", title: "Sintel - Open Movie by Blender Foundation (CC BY)", description: "Blender oficial — 15 min, 1080p.", thumbnail: "https://i.ytimg.com/vi/eRsGyueVLvQ/hqdefault.jpg", category: "Cinema", duration: "14:48", source: "youtube", url: "https://www.youtube.com/watch?v=eRsGyueVLvQ", provider: "YouTube", countryId: "br" },
 ];
 
-// Cinema latino real — pôster oficial, nunca thumbnail. Sem Blender (não-latino).
+// Cinema latino real — só com pôster oficial. Sem thumbnail YouTube como cartaz.
 export const mockMovies: Movie[] = [
-  { id: "auto-gris-1919", title: "El automóvil gris (1919)", description: "Enrique Rosas — mudo mexicano, domínio público. IMDb tt0009894.", thumbnail: "https://upload.wikimedia.org/wikipedia/commons/2/24/El_Automovil_Gris_-_poster.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=FmfouqMv_EA", provider: "YouTube", year: "1919", director: "Enrique Rosas", countryId: "mx" },
-  { id: "cine-argentino-pl", title: "Cine Argentino — Películas Completas", description: "Playlist oficial YouTube — cinema argentino completo.", thumbnail: "https://i.ytimg.com/vi/UXnAJqXF4VU/hqdefault.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/playlist?list=PLj9stbUOTbCuRN8CqKn_t93L5MvhPf98U", provider: "YouTube", year: "2024", director: "Vários", countryId: "ar" },
+  { id: "auto-gris-1919", title: "El automóvil gris (1919)", description: "Enrique Rosas — mudo mexicano, domínio público. IMDb tt0009894. Pôster original Wikimedia.", thumbnail: "https://upload.wikimedia.org/wikipedia/commons/2/24/El_Automovil_Gris_-_poster.jpg", category: "Longas", source: "youtube", url: "https://www.youtube.com/watch?v=FmfouqMv_EA", provider: "YouTube", year: "1919", director: "Enrique Rosas", countryId: "mx" },
 ];
 
 export const mockCategories: Category[] = [

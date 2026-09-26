@@ -53,13 +53,13 @@ export default function TVHome(){
         {mockChannels.map(c=> <div key={c.id} className="w-[260px] shrink-0 snap-start"><ChannelCard channel={c} /><p className="mt-2 px-1 text-xs text-[#8a8a8a]">{c.category} · {c.country.flag} {c.country.code}</p></div>)}
       </CarouselDpad>
 
-      {/* CINEMA LATINO-AMERICANO */}
+      {/* CINEMA LATINO-AMERICANO — só pôster oficial */}
       <section className="space-y-3">
-        <div className="flex items-center justify-between"><h2 className="text-lg font-bold text-white">Cinema latino-americano</h2><Link href="/tv/cinema" className="text-xs tracking-widest text-[#8a8a8a] hover:text-white">VER CATÁLOGO →</Link></div>
+        <div className="flex items-center justify-between"><h2 className="text-lg font-bold text-white">Cinema latino-americano</h2><Link href="/tv/filmes" className="text-xs tracking-widest text-[#8a8a8a] hover:text-white">VER FILMES →</Link></div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {mockMovies.map(m=> <MovieCard key={m.id} movie={m} />)}
-          <Link href="/tv/filmes/1" className="group overflow-hidden rounded-xl border border-[#222] bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] p-6 grid place-items-center text-center hover:border-[#333]">
-            <span className="text-sm font-bold text-white">Explorar curtas, longas e festivais</span><span className="mt-2 text-xs text-[#8a8a8a]">Argentina · Brasil · Chile · 2024</span>
+          <Link href="/tv/filmes" className="group overflow-hidden rounded-xl border border-[#222] bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] p-6 grid place-items-center text-center hover:border-[#e50914]/60">
+            <span className="text-sm font-bold text-white">Catálogo completo de filmes</span><span className="mt-2 text-xs text-[#8a8a8a]">Argflix · Libreflix · domínio público</span>
           </Link>
         </div>
       </section>
